@@ -58,22 +58,25 @@ Please read the [development docs](docs/DEVELOPMENT.md) and [contribution docs](
 
 ### Prerequisites
 
-- **Node.js** (v22 or higher)
-- **Ollama** (installed and running locally or remote for model inference)
+Before you begin, ensure you have the following installed:
+
+- **Node.js**: Version 22.x or higher.
+- **Ollama**: Installed and active (either locally or via a remote endpoint) for model inference.
 
 ### Installation & Setup
 
-After cloning the repository, install dependencies
+- Clone the repository and navigate into the project directory.
+- Then:
 
 ```bash
 # Install dependencies
 npm install
 
-# Start application
+# Launch the application
 npm run electron
 ```
 
-For detailed build instructions and production packages, see [DEVELOPMENT.md](docs/DEVELOPMENT.md).
+For comprehensive build instructions and production packaging details, please refer to the [DEVELOPMENT.md](docs/DEVELOPMENT.md) guide.
 
 ## License
 

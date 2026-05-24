@@ -19,8 +19,8 @@ export default {
             config: {
                 options: {
                     // name: 'puro',
-                    maintainer: 'Davide Miceli <d.miceli@outlook.it>',
-                    homepage: 'https://github.com/davidemiceli/puro',
+                    maintainer: 'Davide Miceli',
+                    homepage: 'https://github.com/davidemiceli/puro-agent-harness',
                     icon: path.join(__dirname, 'electron/assets/icons/icon_128.png'),
                     // icon: {
                     //     'scalable': './electron/assets/icons/puro.svg', // Recommended: best for Software Centers

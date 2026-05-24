@@ -2,12 +2,12 @@
   "name": "puro",
   "productName": "Puro",
   "version": "2026.5.3",
-  "description": "Puro is an open-source coding agent",
-  "homepage": "https://github.com/davidemiceli/puro",
-  "author": "Davide Miceli <d.miceli@outlook.it> (https://github.com/davidemiceli/)",
+  "description": "Puro is an open source high-granularity agent harness",
+  "homepage": "https://github.com/davidemiceli/puro-agent-harness",
+  "author": "Davide Miceli (https://github.com/davidemiceli/puro-agent-harness)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davidemiceli/puro.git"
+    "url": "git+https://github.com/davidemiceli/puro-agent-harness.git"
   },
   "type": "module",
   "main": "electron/main.js",
