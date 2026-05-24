@@ -1,0 +1,57 @@
+{
+  "name": "puro",
+  "productName": "Puro",
+  "version": "2026.5.3",
+  "description": "Puro is an open-source coding agent",
+  "homepage": "https://github.com/davidemiceli/puro",
+  "author": "Davide Miceli <d.miceli@outlook.it> (https://github.com/davidemiceli/)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidemiceli/puro.git"
+  },
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "test:ci": "NO_COLOR=true vitest run",
+    "test:report": "vitest run --reporter=verbose --reporter=json --outputFile=./test-output.json",
+    "electron:dev": "NODE_ENV=dev electron .",
+    "electron": "electron .",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "make": "electron-forge make"
+  },
+  "license": "AGPL-3.0-only",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.11.1",
+    "@electron-forge/maker-deb": "^7.11.1",
+    "@eslint/js": "^10.0.1",
+    "@solidjs/testing-library": "^0.8.10",
+    "@tailwindcss/postcss": "^4.2.4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@typescript-eslint/parser": "^8.59.1",
+    "electron": "^41.3.0",
+    "eslint": "^10.3.0",
+    "globals": "^17.6.0",
+    "jsdom": "^29.1.1",
+    "postcss": "^8.5.12",
+    "solid-devtools": "^0.34.5",
+    "tailwindcss": "^4.2.4",
+    "vite": "^7.3.2",
+    "vite-plugin-solid": "^2.11.12",
+    "vitest": "^4.1.6"
+  },
+  "dependencies": {
+    "@solidjs/router": "^0.16.1",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
+    "katex": "^0.17.0",
+    "marked": "^18.0.4",
+    "ollama": "^0.6.3",
+    "solid-js": "^1.9.12",
+    "zod": "^4.3.6"
+  }
+}

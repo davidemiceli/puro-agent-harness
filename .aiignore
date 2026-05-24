@@ -6,7 +6,6 @@ out
 .netlify
 .vinxi
 app.config.timestamp_*.js
-test-output.json
 
 # Environment
 .env
@@ -22,10 +21,9 @@ test-output.json
 *.launch
 .settings/
 
-# Temp
-gitignore
-NOTES.md
-TEST-MD.md
+# Git
+.gitignore
+.git
 
 # System Files
 .DS_Store
