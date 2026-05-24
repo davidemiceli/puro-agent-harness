@@ -13,7 +13,7 @@ Please use one of the following labels to open PRs.
 | **`user-request`** | Feature suggestions or feedbacks |
 | **`documentation`** | Improvements, fixes, or additions to the project docs. |
 | **`help wanted`** | Open tasks looking for help with. |
-| **`perf`** | Changes focused on improving speed or resource usage. |
+| **`performance`** | Changes focused on improving speed or resource usage. |
 
 This project follows the **[Conventional Commits](https://www.conventionalcommits.org/)** specification. This helps us maintain a clear project history and automates our versioning process.
 
