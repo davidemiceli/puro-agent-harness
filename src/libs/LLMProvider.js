@@ -9,9 +9,12 @@ class LLMProvider {
     }
 
     init(configs) {
-        const { host, model } = configs.provider;
+        const { host, model, api_key } = configs.provider;
         this.model = model;
-        this.LLM = new Ollama({ host });
+        const headers = api_key ? {
+            headers: { Authorization: `Bearer ${api_key}` }
+        } : {};
+        this.LLM = new Ollama({ host, ...headers });
     }
 
     async listModels() {

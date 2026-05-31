@@ -17,6 +17,7 @@ export const routes = [
     { path: '/session', component: Session },
     { path: '/agent', component: Agent },
     { path: '/prompt', component: Prompt },
+    // { path: '/about', component: About },
     {
         path: '**',
         component: lazy(() => import('@/src/errors/404')),

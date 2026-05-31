@@ -6,6 +6,7 @@ import { fileList, refreshFileList } from '../stores/fileList';
 import draggable from '@/src/directives/draggable'; // eslint-disable-line no-unused-vars
 import { BoxButton } from '@/src/components/Box';
 import { ContextUsage } from '@/src/components/ContextUsage';
+import SelectedWorkspace from '@/src/components/SelectedWorkspace';
 import FileEntry from '@/src/components/FileEntry';
 import { RefreshIcon, DeselectIcon, AddIcon, MinusIcon, DeleteIcon } from '@/src/components/Icons';
 
@@ -24,6 +25,7 @@ export const Sidebar = (props) => {
             <div class="flex gap-2 p-4">
                 <ContextUsage />
             </div>
+            <SelectedWorkspace />
             <div class="flex items-center gap-2 p-4">
                 <Tooltip text="Refresh List" position='right'>
                     <BoxButton colorClasses={btnColorClass} px={btnPadding.x} py={btnPadding.y} onClick={() => refreshFileList()}>

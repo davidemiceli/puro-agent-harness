@@ -32,8 +32,8 @@ export function BoxInfo(props) {
     </div>;
 }
 
-export const BoxButtonShowMore = (props) => <BoxButton ariaLabel={`Show ${props.showLess() ? 'Less' : 'More'}`} colorClasses='text-black bg-gray-200' classes='hover:bg-gray-100' onClick={() => props.setShowLess(v => !v)}>
-    <Show when={props.showLess()} fallback={<ChevronUpIcon class="w-4 h-4 object-contain" />}>
-        <ChevronDownIcon class="w-4 h-4 object-contain" />
+export const BoxButtonShowMore = (props) => <BoxButton ariaLabel={`Show ${props.showMore ? 'More' : 'Less' }`} colorClasses='text-black bg-gray-200' classes='hover:bg-gray-100' onClick={props.toggleShowMore}>
+    <Show when={props.showMore} fallback={<ChevronDownIcon class="w-4 h-4 object-contain" />}>
+        <ChevronUpIcon class="w-4 h-4 object-contain" />
     </Show>
 </BoxButton>;

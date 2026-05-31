@@ -19,7 +19,6 @@ export default (props) => {
         props.onSelect();
     };
 
-    const colorClasses = 'text-gray-800 bg-gray-200 hover:text-white';
     return <div class={containerClass()} onClick={handleSelect}>
         <div class="flex items-center gap-3">
             <div class="flex flex-col gap-2 min-w-0">

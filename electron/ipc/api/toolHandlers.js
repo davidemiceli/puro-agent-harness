@@ -50,7 +50,6 @@ export default {
             }
             return { data: results, error: null };
         } catch (err) {
-            console.error(err);
             return { data: null, error: err.message };
         }
     },
@@ -65,7 +64,6 @@ export default {
             await writeFile(safePath, content, 'utf-8');
             return { data: `Successfully wrote ${filename}`, error: null };
         } catch (err) {
-            console.error(err);
             return { data: null, error: err.message };
         }
     }

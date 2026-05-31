@@ -19,7 +19,8 @@ const defaultData = {
     provider: {
         name: 'ollama',
         host: 'http://localhost:11434',
-        model: null
+        model: null,
+        api_key: null
     },
     agent_registry_folder: '',
     context_window_size: 32000

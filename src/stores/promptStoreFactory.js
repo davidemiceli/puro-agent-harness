@@ -29,6 +29,7 @@ export const createPromptStore = () => {
             id: self.crypto.randomUUID(),
             datetime: new Date().toISOString(), // When node.js lts will be > v26 use: Temporal.Now.instant().toString(),
             included: true,
+            expanded: true,
             role,
             content,
             ...args ? args : {}
@@ -54,6 +55,7 @@ export const createPromptStore = () => {
                 filename,
                 datetime: new Date().toISOString(), // When node.js lts will be > v26 use: Temporal.Now.instant().toString(),
                 included: true,
+                expanded: false,
                 role: 'user',
                 ...opts ?? {},
                 content: `<file name="${filename}">\n${content}\n</file>`
@@ -92,6 +94,8 @@ export const createPromptStore = () => {
                 return promptActions.moveItem(currentList, currentIndex, direction);
             });
         },
+
+        toggleExpandPrompt: (key, id) => setPrompt(key, o => o.id == id, 'expanded', v => !v),
 
         toggleTool: name => {
             const index = prompt.tools.findIndex(t => t.name === name);

@@ -68,6 +68,17 @@ describe('createPromptStore', () => {
             expect(prompt.system[0].included).toBe(true);
         });
 
+        it('toggleExpandPrompt should toggle the expanded property', () => {
+            promptActions.addPrompt('system', 'user', 'test');
+            const id = prompt.system[0].id;
+
+            expect(prompt.system[0].expanded).toBe(true);
+            promptActions.toggleExpandPrompt('system', id);
+            expect(prompt.system[0].expanded).toBe(false);
+            promptActions.toggleExpandPrompt('system', id);
+            expect(prompt.system[0].expanded).toBe(true);
+        });
+
         it('toggleIncludePrompt should toggle the included property', () => {
             promptActions.addPrompt('system', 'user', 'test');
             const id = prompt.system[0].id;

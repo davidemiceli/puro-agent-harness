@@ -3,6 +3,7 @@ import { BootstrapProvider } from '@/src/contexts/bootstrapContext';
 import { NotificationProvider } from '@/src/contexts/notificationContext';
 import LoadingGlobal from '@/src/components/LoadingGlobal';
 import Header from '@/src/components/Header/Header';
+import MenuSidebar from '@/src/components/MenuSidebar';
 
 
 export default function App(props) {
@@ -12,7 +13,10 @@ export default function App(props) {
                 <Suspense fallback={<LoadingGlobal />}>
                     <div class="flex flex-col h-screen min-w-7xl overflow-hidden">
                         <Header />
-                        {props.children}
+                        <div class="flex flex-1 overflow-hidden">
+                            <MenuSidebar />
+                            {props.children}
+                        </div>
                     </div>
                 </Suspense>
             </NotificationProvider>

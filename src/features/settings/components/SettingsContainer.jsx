@@ -70,10 +70,13 @@ export default function SettingsContainer() {
 
     return <div class="flex w-full justify-center p-6 text-sm font-semibold text-gray-800">
         <div class="flex flex-col w-full space-y-3">
-            <div class='flex items-center gap-2 text-xs'>
-                <BoxButton px={btnPadding.x} py={btnPadding.y} colorClasses={btnColorClass} onClick={handleSave}>Save</BoxButton>
-                <BoxButton px={btnPadding.x} py={btnPadding.y} colorClasses={btnColorClass} onClick={handleUndo}>Undo last changes</BoxButton>
-                <BoxButton px={btnPadding.x} py={btnPadding.y} colorClasses={btnColorClass} onClick={handleReset}>Reset to defaults</BoxButton>
+            <div class="flex items-center justify-between">
+                <div class='flex items-center gap-2 text-xs'>
+                    <BoxButton px={btnPadding.x} py={btnPadding.y} colorClasses={btnColorClass} onClick={handleSave}>Save</BoxButton>
+                    <BoxButton px={btnPadding.x} py={btnPadding.y} colorClasses={btnColorClass} onClick={handleUndo}>Undo last changes</BoxButton>
+                    <BoxButton px={btnPadding.x} py={btnPadding.y} colorClasses={btnColorClass} onClick={handleReset}>Reset to defaults</BoxButton>
+                </div>
+                <div class="text-xs text-gray-400">v{__APP_VERSION__}</div>
             </div>
             <SyntaxValidation text={syntaxErrorText()} />
             <textarea

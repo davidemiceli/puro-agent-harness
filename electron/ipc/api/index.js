@@ -49,6 +49,7 @@ export default function registerHandlers() {
 
     // Other
     ipcMain.handle('api:copy-to-clipboard', miscHandlers.copyToClipboard);
+    ipcMain.handle('api:open-browser', miscHandlers.openBrowser);
 
     // Dialog
     ipcMain.handle('api:save-confirmation', dialogHandlers.saveConfirmation);

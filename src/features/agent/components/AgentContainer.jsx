@@ -1,4 +1,4 @@
-import { createEffect, createSignal, Show, For } from 'solid-js';
+import { createEffect, Show, For } from 'solid-js';
 import { scrollToBottom } from '@/src/libs/helpers/ui';
 import { formatDateTime } from '@/src/libs/helpers/utils';
 import { prompt, promptActions } from '@/src/features/prompt/stores/promptStore';
@@ -10,7 +10,6 @@ import { categoryClassName } from '../common/helpers';
 
 
 function SystemItem(props) {
-    const [showLess, setShowLess] = createSignal(true);
     const roleClassName = {bg: 'bg-gray-800', border: 'border-gray-800'};
 
     return <Box classes={`flex flex-col gap-4 w-full p-2 border-l-6 whitespace-pre-wrap ${props.r.included ? categoryClassName(props.r.category).border : 'border-gray-100'}`}>
@@ -26,8 +25,8 @@ function SystemItem(props) {
                 </BoxInfo>
                 <BoxInfo colorClasses={`${categoryClassName(props.r.category).bg} text-white capitalize`}>{props.r.category}</BoxInfo>
                 <BoxInfo colorClasses='bg-amber-400 text-black capitalize'>{props.r.name}</BoxInfo>
-                <Show when={!showLess()}>
-                    <BoxButtonShowMore showLess={showLess} setShowLess={setShowLess} />
+                <Show when={props.r.expanded}>
+                    <BoxButtonShowMore showMore={props.r.expanded} toggleShowMore={() => promptActions.toggleExpandPrompt('system', props.r.id)} />
                 </Show>
             </div>
             <div class='flex gap-2'>
@@ -48,15 +47,15 @@ function SystemItem(props) {
                 </Tooltip>
             </div>
         </div>
-        <Show when={showLess() && props.r.description}>
-            <div class='h-fit'>{props.r.description}</div>
-        </Show>
-        <Show when={!showLess() && props.r.content}>
+        <Show when={props.r.expanded && props.r.content}>
             <div class='h-fit'>{props.r.content}</div>
+        </Show>
+        <Show when={!props.r.expanded && props.r.description}>
+            <div class='h-fit'>{props.r.description}</div>
         </Show>
         <div class='flex justify-between text-xs'>
             <div class='flex gap-2'>
-                <BoxButtonShowMore showLess={showLess} setShowLess={setShowLess} />
+                <BoxButtonShowMore showMore={props.r.expanded} toggleShowMore={() => promptActions.toggleExpandPrompt('system', props.r.id)} />
                 <BoxInfo colorClasses='text-gray-800 bg-gray-200'>{formatDateTime(props.r.datetime)}</BoxInfo>
                 <BoxInfo><EstimatedTokensCount text={props.r.content} /></BoxInfo>
             </div>

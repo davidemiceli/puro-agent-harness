@@ -34,6 +34,7 @@ export default function Agent() {
         category: category.selectedCategory,
         name,
         description,
+        expanded: false,
         filename
     });
 

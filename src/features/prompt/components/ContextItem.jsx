@@ -1,4 +1,4 @@
-import { createSignal, Show } from 'solid-js';
+import { createSignal, Show, Match, Switch } from 'solid-js';
 import { formatDateTime, extractFilesFromPrompt } from '@/src/libs/helpers/utils';
 import APIs from '@/src/services/apis';
 import DialogsAPIs from '@/src/services/dialogs';
@@ -9,7 +9,7 @@ import Tooltip from '@/src/components/Tooltip';
 import { Box, BoxButton, BoxInfo, BoxButtonShowMore } from '@/src/components/Box';
 import EstimatedTokensCount from '@/src/components/EstimatedTokensCount';
 import Markdown from '@/src/components/Markdown/Markdown';
-import { ArrowUpIcon, ArrowDownIcon, CopyIcon, DownloadIcon, EditIcon, DeleteIcon, ForwardIcon, CodeIcon } from '@/src/components/Icons';
+import { ArrowUpIcon, ArrowDownIcon, CopyIcon, DownloadIcon, EditIcon, DeleteIcon, ForwardIcon } from '@/src/components/Icons';
 import { toDisplayToolName } from '@/src/agent-engine/libs/helpers';
 
 
@@ -19,7 +19,6 @@ const SourceContent = props => <div class='h-fit' classList={{truncate: props.tr
 
 
 export default function ContextItem(props) {
-    const [showLess, setShowLess] = createSignal(false);
     const [isCopied, setIsCopied] = createSignal(false);
     const [isMarkdown, setIsMarkdown] = createSignal(false);
     const roleClassName = role => (
@@ -84,6 +83,9 @@ export default function ContextItem(props) {
                         {props.r.role}
                     </BoxButton>
                 </Tooltip>
+                <Show when={props.r.filename}>
+                    <BoxInfo colorClasses='text-white bg-amber-600'>File</BoxInfo>
+                </Show>
                 <Show when={props.r.toolName}>
                     <BoxInfo colorClasses='text-gray-800 bg-gray-200' classes='capitalize'>
                         {toDisplayToolName(props.r.toolName)}
@@ -141,20 +143,29 @@ export default function ContextItem(props) {
             </div>
         </div>
         <Show when={props.r.args}>
-            <div class={`h-fit rounded p-2 bg-gray-100 text-black ${showLess() ? 'truncate' : ''} overflow-x-auto`}>
+            <div class={`h-fit rounded p-2 bg-gray-100 text-black ${props.r.expanded ? '' : 'truncate'} overflow-x-auto`}>
                 <pre>{JSON.stringify(props.r.args, null, 2)}</pre>
             </div>
         </Show>
         <Show when={props.r.content}>
-            <Show when={showLess()} fallback={<Show when={isMarkdown() && !props.r.filename} fallback={<SourceContent content={props.r.content} />}>
-                <Markdown content={props.r.content} />
-            </Show>}>
-                <SourceContent content={props.r.content} truncate={true} />
-            </Show>
+            <Switch>
+                <Match when={props.r.filename && props.r.expanded}>
+                    <SourceContent content={props.r.content} />
+                </Match>
+                <Match when={props.r.filename && !props.r.expanded}>
+                    <div class="text-xs font-semibold text-gray-800">{props.r.filename}</div>
+                </Match>
+                <Match when={!props.r.filename && props.r.expanded && isMarkdown()}>
+                    <Markdown content={props.r.content} />
+                </Match>
+                <Match when={!props.r.filename && !isMarkdown()}>
+                    <SourceContent content={props.r.content} truncate={!props.r.expanded} />
+                </Match>
+            </Switch>
         </Show>
         <div class='flex justify-between text-xs'>
             <div class='flex gap-2'>
-                <BoxButtonShowMore showLess={showLess} setShowLess={setShowLess} />
+                <BoxButtonShowMore showMore={props.r.expanded} toggleShowMore={() => promptActions.toggleExpandPrompt('context', props.r.id)} />
                 <BoxInfo colorClasses='text-gray-800 bg-gray-200'>{formatDateTime(props.r.datetime)}</BoxInfo>
                 <Show when={props.r.author}>
                     <BoxInfo colorClasses='text-gray-800 bg-gray-200'>{props.r.author}</BoxInfo>

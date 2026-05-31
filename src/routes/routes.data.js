@@ -31,5 +31,11 @@ export const navigationData = [
         url: '/prompt',
         title: 'Prompt Design',
         description: 'Refine your request with supplemental data and context messages for better outcomes'
-    }
+    },
+    // {
+    //     name: 'About',
+    //     url: '/about',
+    //     title: 'About',
+    //     description: 'Learn more'
+    // }
 ];

@@ -22,6 +22,9 @@ contextBridge.exposeInMainWorld('api', {
     clipboard: {
         copy: text => ipcRenderer.invoke('api:copy-to-clipboard', text)
     },
+    browser: {
+        open: url => ipcRenderer.invoke('api:open-browser', url)
+    },
     dialog: {
         saveConfirmation: name => ipcRenderer.invoke('api:save-confirmation', name),
         actionConfirmation: (title, message) => ipcRenderer.invoke('api:action-confirmation', title, message),

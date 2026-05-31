@@ -126,8 +126,8 @@ export default function InputPrompt(props) {
                 </div>
                 <div class='flex items-center'>
                     <Tooltip text='Execute bash' position='top'>
-                        <BoxButton aria-label="Execute Bash" colorClasses="bg-gray-200 hover:bg-black hover:text-white" px="4" py="2" onClick={() => props.onExecuteBash(props.inputText())}>
-                            <ShellIcon class="w-4 h-4 object-contain" />
+                        <BoxButton aria-label="Execute Bash" colorClasses="bg-gray-200 hover:bg-gray-700 hover:text-white" px="3" py="1" onClick={() => props.onExecuteBash(props.inputText())}>
+                            <ShellIcon class="w-6 h-6 object-contain" />
                         </BoxButton>
                     </Tooltip>
                     <Tooltip text={addSaveTextBtn} position='top'>

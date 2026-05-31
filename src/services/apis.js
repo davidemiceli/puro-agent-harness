@@ -75,6 +75,12 @@ class APIs extends BaseAPIs {
         return resp.data;
     }
 
+    async openBrowser(url) {
+        const resp = await window.api.browser.open(url);
+        if (resp.error) throw new Error('Failed to open browser');
+        return resp.data;
+    }
+
     async listAgentRegistry() {
         const resp = await window.api.agentRegistry.list();
         if (resp.error) throw new Error('Failed to fetch agent registry list');
