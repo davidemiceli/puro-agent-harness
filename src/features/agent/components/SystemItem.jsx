@@ -1,4 +1,4 @@
-import { Show } from 'solid-js';
+import { Show, createSignal } from 'solid-js';
 import { formatDateTime } from '@/src/libs/helpers/utils';
 import { promptActions } from '@/src/features/prompt/stores/promptStore';
 import Tooltip from '@/src/components/Tooltip';
@@ -10,8 +10,36 @@ import { categoryClassName } from '../common/helpers';
 
 export default function SystemItem(props) {
     const roleClassName = {bg: 'bg-gray-800', border: 'border-gray-800'};
+    const [dropDir, setDropDir] = createSignal(null);
 
-    return <Box classes={`flex flex-col gap-4 w-full p-2 border-l-6 whitespace-pre-wrap ${props.r.included ? categoryClassName(props.r.category).border : 'border-gray-100'}`}>
+    const dragClasses = () => {
+        if (dropDir() === 'before') return 'border-t-2';
+        if (dropDir() === 'after') return 'border-b-2';
+        return '';
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
+        const y = e.clientY - rect.top;
+        setDropDir(y < rect.height / 2 ? 'before' : 'after');
+    };
+    const handleDragLeave = () => setDropDir(null);
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const dir = dropDir();
+        setDropDir(null);
+        if (props.index !== props.draggedIndex) props.onDrop(dir);
+    };
+
+    return <Box classes={`flex flex-col gap-4 w-full p-2 border-l-6 whitespace-pre-wrap ${props.r.included ? categoryClassName(props.r.category).border : 'border-gray-100'} ${dragClasses()}`}
+        draggable={true}
+        onDragStart={props.onDragStart}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onDragEnd={props.onDragEnd}
+    >
         <div class='flex justify-between text-xs'>
             <div class="flex gap-2">
                 <Tooltip text={`${props.r.included ? 'Exclude from' : 'Include in'} system prompt`} position='right'>
