@@ -95,6 +95,14 @@ export const createPromptStore = () => {
             });
         },
 
+        movePromptAtIndex: (key, fromIndex, toIndex) => setPrompt(key, () => {
+            const list = [...prompt[key]];
+            const [moved] = list.splice(fromIndex, 1);
+            const adjustedTo = toIndex > fromIndex ? toIndex - 1 : toIndex;
+            list.splice(adjustedTo, 0, moved);
+            return list;
+        }),
+
         toggleExpandPrompt: (key, id) => setPrompt(key, o => o.id == id, 'expanded', v => !v),
 
         toggleTool: name => {

@@ -21,6 +21,14 @@ const SourceContent = props => <div class='h-fit' classList={{truncate: props.tr
 export default function ContextItem(props) {
     const [isCopied, setIsCopied] = createSignal(false);
     const [isMarkdown, setIsMarkdown] = createSignal(false);
+    const [dropDir, setDropDir] = createSignal(null);
+
+    const dragClasses = () => {
+        if (dropDir() === 'before') return 'border-t-2';
+        if (dropDir() === 'after') return 'border-b-2';
+        return '';
+    };
+
     const roleClassName = role => (
         role === 'user' ? {bg: 'bg-sky-600', border: 'border-sky-600'} :
             role === 'assistant' ? {bg: 'bg-green-700', border: 'border-green-700'} :
@@ -70,7 +78,28 @@ export default function ContextItem(props) {
         setTimeout(() => setIsCopied(false), 500);
     };
 
-    return <Box classes={`flex flex-col gap-4 w-full py-0 px-2 border-l-6 whitespace-pre-wrap ${props.r.included ? roleClassName(props.r.role).border : 'border-gray-100'}`}>
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
+        const y = e.clientY - rect.top;
+        setDropDir(y < rect.height / 2 ? 'before' : 'after');
+    };
+    const handleDragLeave = () => setDropDir(null);
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const dir = dropDir();
+        setDropDir(null);
+        if (props.index !== props.draggedIndex) props.onDrop(dir);
+    };
+
+    return <Box classes={`flex flex-col gap-4 w-full py-0 px-2 border-l-6 whitespace-pre-wrap ${props.r.included ? roleClassName(props.r.role).border : 'border-gray-100'} ${dragClasses()}`}
+        draggable={true}
+        onDragStart={props.onDragStart}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onDragEnd={props.onDragEnd}
+    >
         <div class='flex justify-between text-xs'>
             <div class="flex gap-2">
                 <Tooltip text={`${props.r.included ? 'Exclude from' : 'Include in'} context`} position='right'>

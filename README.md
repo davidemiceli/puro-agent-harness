@@ -4,9 +4,9 @@
 
 <h1 align="center">Puro</h1>
 <p align="center">
-  <img src="https://img.shields.io/badge/status-under--active--development-orange?style=flat-square" alt="Active Development">
-  <img src="https://img.shields.io/github/license/davidemiceli/puro-agent-harness?style=flat-square&colorB=0069a8" alt="License AGPL-3.0">
   <img src="https://img.shields.io/badge/Javascript-gray?logo=javascript&style=flat-square" alt="Javascript">
+  <img src="https://img.shields.io/github/license/davidemiceli/puro-agent-harness?style=flat-square&colorB=0069a8" alt="License AGPL-3.0-only">
+  <img src="https://img.shields.io/badge/status-under--active--development-orange?style=flat-square" alt="Active Development">
 </p>
 
 Puro is an **Open Source Minimal High-Granularity Coding Harness** designed for who demand to stay close to the code and maintain control over its evolution. If you know how to edit the prompt context, you know how to drive the agent.

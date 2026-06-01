@@ -1,10 +1,11 @@
-import { createMemo, Show, children } from 'solid-js';
+import { createMemo, Show, children, splitProps } from 'solid-js';
 import { ChevronDownIcon, ChevronUpIcon } from './Icons';
 
 
 export function Box(props) {
     const resolved = children(() => props.children);
-    return <div class={`w-full text-gray-900 font-mono font-normal text-sm ${props.classes}`}>
+    const [local, rest] = splitProps(props, ['class', 'classes', 'children']);
+    return <div class={`w-full text-gray-900 font-mono font-normal text-sm ${local.classes}`} {...rest}>
         {resolved}
     </div>;
 }
