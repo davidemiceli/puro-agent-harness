@@ -2,6 +2,7 @@ import { For, Switch, Match, createMemo } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import hljs from 'highlight.js';
 import katex from 'katex';
+import DOMPurify from 'dompurify';
 import 'highlight.js/styles/github.css';
 import 'katex/dist/katex.min.css';
 
@@ -61,7 +62,7 @@ const TokenList = (props) => <For each={props.tokens}>
                             <For each={token.header}>
                                 {(cell) => <th 
                                     class="px-4 py-3 text-xs font-bold text-gray-900"
-                                    style={{ 'text-align': cell.align || 'left' }}
+                                    style={{ textAlign: cell.align || 'left' }}
                                 >
                                     <TokenList tokens={cell.tokens} />
                                 </th>}
@@ -74,7 +75,7 @@ const TokenList = (props) => <For each={props.tokens}>
                                 <For each={row}>
                                     {(cell) => <td 
                                         class="px-4 py-3 text-xs font-semibold text-gray-700"
-                                        style={{ 'text-align': cell.align || 'left' }}
+                                        style={{ textAlign: cell.align || 'left' }}
                                     >
                                         <TokenList tokens={cell.tokens} />
                                     </td>}
@@ -101,7 +102,7 @@ const TokenList = (props) => <For each={props.tokens}>
         </Match>
 
         <Match when={token.type === 'html'}>
-            <div class="my-4" innerHTML={token.text} />
+            <div class="my-4" innerHTML={DOMPurify.sanitize(token.text)} />
         </Match>
 
         <Match when={token.type === 'def'}>
@@ -111,7 +112,7 @@ const TokenList = (props) => <For each={props.tokens}>
 
         {/* --- Inline Elements --- */}
         <Match when={token.type === 'inlineMath'}>
-            <span innerHTML={katex.renderToString(token.text, { displayMode: false, throwOnError: false })} />
+            <span innerHTML={katex.renderToString(token.text, { displayMode: token.displayMode ?? false, throwOnError: false })} />
         </Match>
 
         <Match when={token.type === 'strong'}>
@@ -133,7 +134,7 @@ const TokenList = (props) => <For each={props.tokens}>
         </Match>
 
         <Match when={token.type === 'link'}>
-            <a href={token.href} title={token.title} target="_blank" class="text-gray-900 underline decoration-gray-300 underline-offset-4 hover:decoration-gray-900 transition-colors">
+            <a href={token.href} title={token.title} target="_blank" rel="noopener noreferrer" class="text-gray-900 underline decoration-gray-300 underline-offset-4 hover:decoration-gray-900 transition-colors">
                 <TokenList tokens={token.tokens} />
             </a>
         </Match>
@@ -162,6 +163,52 @@ const TokenList = (props) => <For each={props.tokens}>
 
         <Match when={token.type === 'space'}>
             <></>
+        </Match>
+
+        <Match when={token.type === 'subscript'}>
+            <sub class="text-xs"><TokenList tokens={token.tokens} /></sub>
+        </Match>
+
+        <Match when={token.type === 'superscript'}>
+            <sup class="text-xs"><TokenList tokens={token.tokens} /></sup>
+        </Match>
+
+        <Match when={token.type === 'inserted'}>
+            <ins class="underline decoration-dotted"><TokenList tokens={token.tokens} /></ins>
+        </Match>
+
+        <Match when={token.type === 'markedText'}>
+            <mark class="bg-yellow-200 px-0.5 rounded"><TokenList tokens={token.tokens} /></mark>
+        </Match>
+
+        <Match when={token.type === 'abbreviation'}>
+            <></>
+        </Match>
+
+        <Match when={token.type === 'customContainer'}>
+            <div class={`my-4 p-4 rounded border-l-4 ${token.name === 'warning' ? 'border-yellow-400 bg-yellow-50' : 'border-gray-300 bg-gray-50'}`}>
+                <TokenList tokens={token.tokens} />
+            </div>
+        </Match>
+
+        <Match when={token.type === 'footnoteRef'}>
+            <sup><a href={'#fn-' + token.number} id={'fnref-' + token.number} class="text-blue-600 hover:text-blue-800 no-underline">{token.number}</a></sup>
+        </Match>
+
+        <Match when={token.type === 'footnoteInline'}>
+            <sup><a href={'#fn-' + token.number} id={'fnref-' + token.number} class="text-blue-600 hover:text-blue-800 no-underline">{token.number}</a></sup>
+        </Match>
+
+        <Match when={token.type === 'footnotesSection'}>
+            <hr class="border-gray-200 my-8" />
+            <ol class="text-sm text-gray-600 space-y-2">
+                <For each={token.footnotes}>
+                    {(fn) => <li id={'fn-' + fn.number}>
+                        {fn.tokens ? <TokenList tokens={fn.tokens} /> : <em class="text-gray-400">[Missing footnote content]</em>}
+                        {' '}<a href={'#fnref-' + fn.number} class="text-gray-400 hover:text-gray-600 no-underline">↩</a>
+                    </li>}
+                </For>
+            </ol>
         </Match>
     </Switch>}
 </For>;
