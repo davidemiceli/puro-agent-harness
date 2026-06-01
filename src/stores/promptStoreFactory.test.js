@@ -139,6 +139,61 @@ describe('createPromptStore', () => {
             expect(prompt.system[1].id).toBe(firstId);
         });
 
+        describe('movePromptAtIndex', () => {
+            const addThreeItems = (actions) => {
+                actions.addPrompt('system', 'user', 'first');
+                actions.addPrompt('system', 'user', 'second');
+                actions.addPrompt('system', 'user', 'third');
+            };
+
+            beforeEach(() => addThreeItems(promptActions));
+
+            it('moves first element forward by 1 yields no-op (from < to, adjacent)', () => {
+                promptActions.movePromptAtIndex('system', 0, 1);
+                expect(prompt.system.map(p => p.content)).toEqual(['first', 'second', 'third']);
+            });
+
+            it('moves first element to position 2 (from < to)', () => {
+                promptActions.movePromptAtIndex('system', 0, 2);
+                expect(prompt.system.map(p => p.content)).toEqual(['second', 'first', 'third']);
+            });
+
+            it('moves middle element backward to start (from > to)', () => {
+                promptActions.movePromptAtIndex('system', 1, 0);
+                expect(prompt.system.map(p => p.content)).toEqual(['second', 'first', 'third']);
+            });
+
+            it('moves middle element forward by 1 yields no-op (from < to, adjacent)', () => {
+                promptActions.movePromptAtIndex('system', 1, 2);
+                expect(prompt.system.map(p => p.content)).toEqual(['first', 'second', 'third']);
+            });
+
+            it('moves last element to start (from > to)', () => {
+                promptActions.movePromptAtIndex('system', 2, 0);
+                expect(prompt.system.map(p => p.content)).toEqual(['third', 'first', 'second']);
+            });
+
+            it('moves last element backward by 1 (from > to)', () => {
+                promptActions.movePromptAtIndex('system', 2, 1);
+                expect(prompt.system.map(p => p.content)).toEqual(['first', 'third', 'second']);
+            });
+
+            it('no-op at index 0', () => {
+                promptActions.movePromptAtIndex('system', 0, 0);
+                expect(prompt.system.map(p => p.content)).toEqual(['first', 'second', 'third']);
+            });
+
+            it('no-op at index 1', () => {
+                promptActions.movePromptAtIndex('system', 1, 1);
+                expect(prompt.system.map(p => p.content)).toEqual(['first', 'second', 'third']);
+            });
+
+            it('no-op at index 2', () => {
+                promptActions.movePromptAtIndex('system', 2, 2);
+                expect(prompt.system.map(p => p.content)).toEqual(['first', 'second', 'third']);
+            });
+        });
+
         it('toggleTool should enable/disable a tool', () => {
             expect(prompt.tools[0].enabled).toBe(true);
             promptActions.toggleTool('tool1');

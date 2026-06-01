@@ -113,12 +113,15 @@ export default function ContextItem(props) {
                     </BoxButton>
                 </Tooltip>
                 <Show when={props.r.filename}>
-                    <BoxInfo colorClasses='text-white bg-amber-600'>File</BoxInfo>
+                    <BoxInfo colorClasses='text-black bg-amber-300'>File</BoxInfo>
                 </Show>
                 <Show when={props.r.toolName}>
                     <BoxInfo colorClasses='text-gray-800 bg-gray-200' classes='capitalize'>
                         {toDisplayToolName(props.r.toolName)}
                     </BoxInfo>
+                </Show>
+                <Show when={props.r.expanded}>
+                    <BoxButtonShowMore showMore={props.r.expanded} toggleShowMore={() => promptActions.toggleExpandPrompt('context', props.r.id)} />
                 </Show>
             </div>
             <div class='flex gap-2'>
