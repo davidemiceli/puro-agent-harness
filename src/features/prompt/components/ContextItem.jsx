@@ -4,7 +4,7 @@ import APIs from '@/src/services/apis';
 import DialogsAPIs from '@/src/services/dialogs';
 import { executeTool, assist } from '@/src/agent-engine/index';
 import { llm } from '@/src/stores/llmStore';
-import { promptActions, setPrompt } from '../stores/promptStore';
+import { prompt, promptActions, setPrompt } from '../stores/promptStore';
 import Tooltip from '@/src/components/Tooltip';
 import { Box, BoxButton, BoxInfo, BoxButtonShowMore } from '@/src/components/Box';
 import EstimatedTokensCount from '@/src/components/EstimatedTokensCount';
@@ -90,15 +90,16 @@ export default function ContextItem(props) {
         if (props.index !== props.draggedIndex) props.onDrop(dir);
     };
 
-    return <Box classes={`flex flex-col gap-4 w-full py-0 px-2 border-l-6 whitespace-pre-wrap ${props.r.included ? roleClassName(props.r.role).border : 'border-gray-100'} ${dragClasses()}`}
-        draggable={true}
-        onDragStart={props.onDragStart}
+return <Box classes={`flex flex-col gap-4 w-full py-0 px-2 border-l-6 whitespace-pre-wrap ${props.r.included ? roleClassName(props.r.role).border : 'border-gray-100'} ${dragClasses()}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onDragEnd={props.onDragEnd}
     >
-        <div class='flex justify-between text-xs'>
+        <div class='flex justify-between text-xs'
+            draggable={true}
+            onDragStart={props.onDragStart}
+            onDragEnd={props.onDragEnd}
+        >
             <div class="flex gap-2">
                 <Tooltip text={`${props.r.included ? 'Exclude from' : 'Include in'} context`} position='right'>
                     <BoxButton aria-label="Index" colorClasses='text-gray-800 bg-gray-200 hover:bg-gray-300' onClick={() => promptActions.toggleIncludePrompt('context', props.r.id)}>
