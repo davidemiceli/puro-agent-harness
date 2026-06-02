@@ -4,7 +4,7 @@ import APIs from '@/src/services/apis';
 import DialogsAPIs from '@/src/services/dialogs';
 import { executeTool, assist } from '@/src/agent-engine/index';
 import { llm } from '@/src/stores/llmStore';
-import { prompt, promptActions, setPrompt } from '../stores/promptStore';
+import { promptActions, setPrompt } from '../stores/promptStore';
 import Tooltip from '@/src/components/Tooltip';
 import { Box, BoxButton, BoxInfo, BoxButtonShowMore } from '@/src/components/Box';
 import EstimatedTokensCount from '@/src/components/EstimatedTokensCount';
@@ -90,7 +90,7 @@ export default function ContextItem(props) {
         if (props.index !== props.draggedIndex) props.onDrop(dir);
     };
 
-return <Box classes={`flex flex-col gap-4 w-full py-0 px-2 border-l-6 whitespace-pre-wrap ${props.r.included ? roleClassName(props.r.role).border : 'border-gray-100'} ${dragClasses()}`}
+    return <Box classes={`flex flex-col gap-4 w-full py-0 px-2 border-l-6 whitespace-pre-wrap ${props.r.included ? roleClassName(props.r.role).border : 'border-gray-100'} ${dragClasses()}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
