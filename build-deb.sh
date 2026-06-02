@@ -19,6 +19,9 @@ MAINTAINER_NAME="Davide Miceli"
 # Create working and output folders
 mkdir -p "${WORKING_DIR}" "${OUTPUT_DIR}"
 
+# Set cache to /tmp to avoid permission issues in the mounted volume
+export NPM_CONFIG_CACHE=/tmp/.npm
+
 # Build frontend app
 npm run build
 
