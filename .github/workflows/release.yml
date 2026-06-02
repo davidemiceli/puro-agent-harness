@@ -1,6 +1,7 @@
 name: Release
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
 
@@ -13,13 +14,16 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
       - run: npm install
+      - run: mkdir -p out out-tmp && chmod 777 out out-tmp
+      - run: docker build -t puro/electron-secure-builder -f docker/Dockerfile .
+      - run: docker run --rm -v $PWD:/home/node/app -e DISABLE_ELECTRON_SANDBOX=1 puro/electron-secure-builder bash build-deb.sh
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release

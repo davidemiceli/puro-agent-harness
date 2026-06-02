@@ -6,9 +6,6 @@
     ["@semantic-release/npm", {
       "npmPublish": false
     }],
-    ["@semantic-release/exec", {
-      "prepareCmd": "docker build -t puro/electron-secure-builder -f docker/Dockerfile . && docker run --rm -v $PWD:/home/node/app -e DISABLE_ELECTRON_SANDBOX=1 puro/electron-secure-builder bash build-deb.sh"
-    }],
     ["@semantic-release/github", {
       "assets": [
         {"path": "out/puro_*.deb", "label": "Debian Package"}
