@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Google Sans Code';
+  src: url('./assets/fonts/google-sans-code/GoogleSansCode-Variable.ttf') format('truetype');
+  font-weight: 300 800;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Google Sans Code';
+  src: url('./assets/fonts/google-sans-code/GoogleSansCode-Italic-Variable.ttf') format('truetype');
+  font-weight: 300 800;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/inter/Inter-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/inter/Inter-Italic-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Google Sans Code", "ui-monospace", monospace;
+  --default-font-family: var(--font-mono);
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-tighter: -0.04em;
+}
+
+@layer base {
+  html, body {
+    font-optical-sizing: auto;
+
+    .font-mono,
+    [class*="font-mono"] {
+      font-variant-ligatures: normal;
+    }
+
+    .font-sans,
+    [class*="font-sans"] {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      letter-spacing: 0.01em;
+    }
+
+    h1.font-sans, h2.font-sans, h3.font-sans, h4.font-sans,
+    .font-sans h1, .font-sans h2, .font-sans h3, .font-sans h4 {
+      letter-spacing: var(--letter-spacing-tight);
+      font-weight: 600;
+    }
+
+  }
+}

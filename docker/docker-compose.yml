@@ -1,0 +1,18 @@
+
+services:
+  ollama:
+    container_name: ollama
+    hostname: ollama
+    image: ollama/ollama
+    volumes:
+      - "${OLLAMA_FOLDER}:/root/.ollama"
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
+    environment:
+      - OLLAMA_CONTEXT_LENGTH=${OLLAMA_CONTEXT_LENGTH}
+      - OLLAMA_API_KEY=${OLLAMA_API_KEY}
+
+networks:
+  default:
+    name: llm-network
