@@ -7,6 +7,7 @@ out
 .vinxi
 app.config.timestamp_*.js
 test-output.json
+electron/dist
 
 # Environment
 .env
