@@ -21,7 +21,6 @@ jobs:
         with:
           node-version: 22
       - run: npm install
-      - run: mkdir -p out out-tmp && chmod 777 out out-tmp
       - run: docker build -t puro/electron-secure-builder -f docker/Dockerfile .
       - run: docker run --rm -v $PWD:/home/node/app -e DISABLE_ELECTRON_SANDBOX=1 puro/electron-secure-builder bash build-deb.sh
       - env:

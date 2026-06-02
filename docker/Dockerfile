@@ -12,6 +12,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Switch to the non-root user
-USER node
+# USER node
 
 WORKDIR /home/node/app
