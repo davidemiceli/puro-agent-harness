@@ -21,11 +21,11 @@ This project follows the **[Conventional Commits](https://www.conventionalcommit
 
 1. **Fork** the project.
 2. **Create** your feature branch:
-`git checkout -b feat/AmazingFeature`
+`git checkout -b feat/amazing-feature`
 3. **Commit** your changes using a descriptive, conventional message:
-`git commit -m 'feat: add some AmazingFeature'`
+`git commit -m 'feat: add some amazing feature'`
 4. **Push** to the branch:
-`git push origin feat/AmazingFeature`
+`git push origin feat/amazing-feature`
 5. **Open** a Pull Request.
 
 ## Commit Message Guidelines
