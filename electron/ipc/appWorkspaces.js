@@ -3,7 +3,7 @@ import { stat, readFile, writeFile } from 'node:fs/promises';
 import { appPath } from './appSettings.js';
 
 export const workspacesPath = path.join(appPath, 'workspaces.json');
-export const workspaceDataFolder = '.agent-registry';
+export const workspaceDataFolder = '.puro';
 
 const defaultData = () => [];
 

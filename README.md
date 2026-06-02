@@ -11,6 +11,8 @@
 
 Puro is an **Open Source Minimal High-Granularity Coding Harness** designed for who demand to stay close to the code and maintain control over its evolution. If you know how to edit the prompt context, you know how to drive the agent.
 
+![Puro Coding Harness: UI Example](docs/images/demo.png)
+
 ## Core Principles
 
 - **Precision over Autonomy**: Built on the belief that complex software requires a "human-in-the-loop". Instead of delegating high-level tasks and hoping for the best, prioritizes surgical accuracy through constant human oversight.
@@ -49,7 +51,7 @@ Puro provides a high-granularity interface for managing the exact context sent t
 The stack is intentionally lean. It is built with Solid JS for a high-performance, reactive frontend with near-zero overhead. Electron is stripped to the essentials, used only to ensure UI portability without the "garbage" dependencies of a full-blown suite.
 
 - **Frontend**: Solid JS
-- **Desktop Framework**: Electron + Electron Forge
+- **Desktop Framework**: Electron
 - **Styling**: Tailwind CSS v4
 - **AI Integration**: Ollama SDK
 - **Development Server**: Vite

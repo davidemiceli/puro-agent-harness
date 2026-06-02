@@ -11,8 +11,8 @@ WORKING_DIR="${BUILD_DIR}/${PACKAGE_NAME}"
 OUTPUT_DEB="${OUTPUT_DIR}/${PACKAGE_NAME}_${PACKAGE_VERSION}_${ARCH}.deb"
 ICON_512="electron/assets/icons/${PACKAGE_NAME}_512.png"
 ICON_SVG="electron/assets/icons/${PACKAGE_NAME}.svg"
-MAINTAINER_NAME="Your Name"
-MAINTAINER_EMAIL="your.email@example.com"
+MAINTAINER_NAME="Davide Miceli"
+# MAINTAINER_EMAIL="your.email@example.com"
 
 # --- Start Build Package ---
 
@@ -38,7 +38,7 @@ cp "${ICON_512}" "${WORKING_DIR}/usr/share/icons/hicolor/512x512/apps/${PACKAGE_
 cp "${ICON_SVG}" "${WORKING_DIR}/usr/share/icons/hicolor/scalable/apps/${PACKAGE_NAME}.svg"
 
 # Add mantainer to puro/DEBIAN/control
-# echo "Maintainer: ${MAINTAINER_NAME} <${MAINTAINER_EMAIL}>" >> "${WORKING_DIR}/DEBIAN/control"
+# echo "Maintainer: ${MAINTAINER_NAME}" >> "${WORKING_DIR}/DEBIAN/control"
 
 # Could need this permission (but skip it for now)
 # chmod 755 puro/DEBIAN/control (if needed)
