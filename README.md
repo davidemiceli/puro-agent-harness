@@ -9,16 +9,16 @@
   <img src="https://img.shields.io/badge/status-under--active--development-orange?style=flat-square" alt="Active Development">
 </p>
 
-Puro is an **Open Source Minimal High-Granularity Coding Harness** designed for who demand to stay close to the code and maintain control over its evolution. If you know how to edit the prompt context, you know how to drive the agent.
+Puro is an **Open Source Minimal High-Granularity Agent Harness** designed for who demand to stay close to the code and maintain control over its evolution. If you know how to edit the prompt context, you know how to drive the agent.
 
-![Puro Coding Harness: UI Example](docs/images/demo.png)
+![Puro Agent Harness: UI Example](docs/images/demo.png)
 
 ## Core Principles
 
 - **Precision over Autonomy**: Built on the belief that complex software requires a "human-in-the-loop". Instead of delegating high-level tasks and hoping for the best, prioritizes surgical accuracy through constant human oversight.
 - **Zero Hidden Logic**: No black boxes. Every message sent to or received from the LLM is fully visible, ensuring 100% transparency in the communication loop.
 - **Total State Sovereignty**: Actively manipulate the entire conversation state and drive the agent's logic, you are the compaction algorithm. Edit everything on the fly, from system prompts and LLM responses to message ordering and rule injection, treating the conversation history as a live, malleable environment, giving you absolute oversight of the agent loop.
-- **Small Open-Weight Models First**: The vast majority of coding harnesses are engineered and benchmarked starting from frontier models. Puro is built from the ground up for small open-weight models: if it works reliably for small models, it will perform even better for frontier models.
+- **Small Open-Weight Models First**: The vast majority of agent harnesses are engineered and benchmarked starting from frontier models. Puro is built from the ground up for small open-weight models: if it works reliably for small models, it will perform even better for frontier models.
 - **Radical Simplicity**: No MCP, no sub-agents, no "modes", no hidden abstractions. Plans and to-dos live in your files. No sandbox, the agent is strictly confined to your workspace and your direct oversight.
 - **Atomic Toolset**: Limited to just three essential tools (*Read File*, *Write File*, and *Execute Bash*) to reduce model confusion and keeps the developer in total control. We deliberately removed "edit" tools because small models often struggle to use them reliably.
 - **No plugin system required**: Forget boilerplate. To add a custom tool, just create a script and instruct the agent to call it via Bash. Bash is the only interface you need.

@@ -31,8 +31,5 @@ TEST-MD.md
 .DS_Store
 Thumbs.db
 
-package-lock.json
-pnpm-lock.yaml
-
 # Agent
 .puro
