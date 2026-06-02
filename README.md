@@ -76,6 +76,9 @@ Before you begin, ensure you have the following installed:
 # Install dependencies
 npm install
 
+# Build application
+npm run build
+
 # Launch the application
 npm run electron
 ```
