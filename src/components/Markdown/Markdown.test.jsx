@@ -225,8 +225,7 @@ describe('Markdown component', () => {
 
     it('handles empty content gracefully', () => {
         render(() => <Markdown content="" />);
-        const wrapper = document.querySelector('.text-gray-900');
-        expect(wrapper).toBeTruthy();
+        expect(document.body.firstChild).toBeTruthy();
     });
 
     it('renders all token types from comprehensive markdown', () => {

@@ -32,6 +32,12 @@ export const navigationData = [
         title: 'Prompt Design',
         description: 'Refine your request with supplemental data and context messages for better outcomes'
     },
+    {
+        name: 'Chat',
+        url: '/chat',
+        title: 'Chat',
+        description: 'Consult conversation history through a read-only, markdown-formatted interface'
+    },
     // {
     //     name: 'About',
     //     url: '/about',

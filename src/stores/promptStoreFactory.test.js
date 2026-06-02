@@ -234,4 +234,20 @@ describe('createPromptStore', () => {
             expect(prompt.responseError).toBe(err);
         });
     });
+
+    it('getChat should return only included, non-file user/assistant messages', () => {
+        promptActions.addPrompt('context', 'user', 'Hello');
+        promptActions.addPrompt('context', 'assistant', 'Hi there');
+        promptActions.addPrompt('context', 'user', 'Hidden');
+        promptActions.toggleIncludePrompt('context', prompt.context[2].id);
+        promptActions.addPromptFile('context', 'data.txt', 'some content');
+        promptActions.addPrompt('context', 'system', 'System instructions');
+
+        const chat = promptActions.getChat();
+        expect(chat).toHaveLength(2);
+        expect(chat[0].content).toBe('Hello');
+        expect(chat[1].content).toBe('Hi there');
+        
+        expect(chat.every(m => ['user', 'assistant'].includes(m.role))).toBe(true);
+    });
 });

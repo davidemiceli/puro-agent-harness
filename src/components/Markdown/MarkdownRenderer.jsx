@@ -10,7 +10,7 @@ import 'katex/dist/katex.min.css';
  * Main Entry Component
  * @param {Object} props.tokens - Output from marked.lexer(markdown)
  */
-const MarkdownRenderer = (props) => <div class="text-gray-900 selection:bg-gray-200">
+const MarkdownRenderer = (props) => <div class="text-base selection:bg-gray-200">
     <TokenList tokens={props.tokens} />
 </div>;
 
@@ -61,7 +61,7 @@ const TokenList = (props) => <For each={props.tokens}>
                         <tr>
                             <For each={token.header}>
                                 {(cell) => <th 
-                                    class="px-4 py-3 text-xs font-bold text-gray-900"
+                                    class="px-4 py-3 text-sm font-bold text-gray-900"
                                     style={{ textAlign: cell.align || 'left' }}
                                 >
                                     <TokenList tokens={cell.tokens} />
@@ -74,7 +74,7 @@ const TokenList = (props) => <For each={props.tokens}>
                             {(row) => <tr>
                                 <For each={row}>
                                     {(cell) => <td 
-                                        class="px-4 py-3 text-xs font-semibold text-gray-700"
+                                        class="px-4 py-3 text-sm font-semibold text-gray-700"
                                         style={{ textAlign: cell.align || 'left' }}
                                     >
                                         <TokenList tokens={cell.tokens} />
@@ -253,7 +253,7 @@ const CodeBlock = (props) => {
                         {props.lang || 'text'}
                     </span>
                 </div>
-                <pre class="px-2 py-1 border border-gray-200 rounded-b-md overflow-x-auto">
+                <pre class="px-2 py-1 border border-gray-200 bg-white rounded-b-md overflow-x-auto">
                     <code 
                         class="hljs font-mono text-sm leading-6"
                         innerHTML={highlighted()} 

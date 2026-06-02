@@ -8,7 +8,7 @@ import MenuSidebar from '@/src/components/MenuSidebar';
 
 export default function App(props) {
     return <BootstrapProvider>
-        <main class='font-mono font-firamono text-gray-900'>
+        <main class='text-gray-900'>
             <NotificationProvider>
                 <Suspense fallback={<LoadingGlobal />}>
                     <div class="flex flex-col h-screen min-w-7xl overflow-hidden">

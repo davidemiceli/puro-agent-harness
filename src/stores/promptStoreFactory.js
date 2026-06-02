@@ -21,6 +21,8 @@ export const createPromptStore = () => {
 
         getPromptById: (key, id) => prompt[key].find(o => o.id === id),
 
+        getChat: () => prompt.context.filter(p => p.included && !p.filename && ['user', 'assistant'].includes(p.role)),
+
         resetPrompt: () => setPrompt(initialState()),
 
         resetPromptByKey: key => setPrompt(key, []),

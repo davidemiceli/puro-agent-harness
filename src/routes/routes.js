@@ -5,6 +5,7 @@ import Workspace from '@/src/features/workspace/Workspace';
 import Session from '@/src/features/session/Session';
 import Agent from '@/src/features/agent/Agent';
 import Prompt from '@/src/features/prompt/Prompt';
+import Chat from '@/src/features/chat/Chat';
 
 
 export const routes = [
@@ -17,6 +18,7 @@ export const routes = [
     { path: '/session', component: Session },
     { path: '/agent', component: Agent },
     { path: '/prompt', component: Prompt },
+    { path: '/chat', component: Chat },
     // { path: '/about', component: About },
     {
         path: '**',

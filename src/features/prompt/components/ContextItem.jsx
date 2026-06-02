@@ -8,7 +8,6 @@ import { promptActions, setPrompt } from '../stores/promptStore';
 import Tooltip from '@/src/components/Tooltip';
 import { Box, BoxButton, BoxInfo, BoxButtonShowMore } from '@/src/components/Box';
 import EstimatedTokensCount from '@/src/components/EstimatedTokensCount';
-import Markdown from '@/src/components/Markdown/Markdown';
 import { ArrowUpIcon, ArrowDownIcon, CopyIcon, DownloadIcon, EditIcon, DeleteIcon, ForwardIcon } from '@/src/components/Icons';
 import { toDisplayToolName } from '@/src/agent-engine/libs/helpers';
 
@@ -20,7 +19,6 @@ const SourceContent = props => <div class='h-fit' classList={{truncate: props.tr
 
 export default function ContextItem(props) {
     const [isCopied, setIsCopied] = createSignal(false);
-    const [isMarkdown, setIsMarkdown] = createSignal(false);
     const [dropDir, setDropDir] = createSignal(null);
 
     const dragClasses = () => {
@@ -125,13 +123,6 @@ export default function ContextItem(props) {
                 </Show>
             </div>
             <div class='flex gap-2'>
-                <Show when={!props.r.filename}>
-                    <Tooltip text="Toggle markdown" position="bottom">
-                        <BoxButton aria-label="Toggle markdown" colorClasses={isMarkdown() ? 'bg-gray-700 text-white' : ''} classes='hover:bg-gray-700' onClick={() => setIsMarkdown(v => !v)}>
-                            MD
-                        </BoxButton>
-                    </Tooltip>
-                </Show>
                 <Tooltip text="Move up" position="bottom">
                     <BoxButton aria-label="Move Up" classes='hover:bg-green-700' onClick={() => promptActions.movePrompt('context', props.r.id, -1)}>
                         <ArrowUpIcon class="w-4 h-4 object-contain" />
@@ -187,10 +178,7 @@ export default function ContextItem(props) {
                 <Match when={props.r.filename && !props.r.expanded}>
                     <div class="text-xs font-semibold text-gray-800">{props.r.filename}</div>
                 </Match>
-                <Match when={!props.r.filename && props.r.expanded && isMarkdown()}>
-                    <Markdown content={props.r.content} />
-                </Match>
-                <Match when={!props.r.filename && !isMarkdown()}>
+                <Match when={!props.r.filename}>
                     <SourceContent content={props.r.content} truncate={!props.r.expanded} />
                 </Match>
             </Switch>

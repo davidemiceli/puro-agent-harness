@@ -2,7 +2,7 @@ import { createMemo, For } from 'solid-js';
 import { A } from '@solidjs/router';
 import APIs from '@/src/services/apis';
 import Tooltip from '@/src/components/Tooltip';
-import { SettingsIcon, WorkspaceIcon, SessionIcon, AgentIcon, PromptIcon, GithubIcon, AboutIcon } from '@/src/components/Icons';
+import { SettingsIcon, WorkspaceIcon, SessionIcon, AgentIcon, PromptIcon, ChatIcon, GithubIcon, AboutIcon } from '@/src/components/Icons';
 import { workspaceCurrent } from '@/src/features/workspace/stores/workspaceStore';
 import { navigationData } from '@/src/routes/routes.data';
 
@@ -12,6 +12,7 @@ const iconMap = {
     Session: SessionIcon,
     Agent: AgentIcon,
     Prompt: PromptIcon,
+    Chat: ChatIcon,
     About: AboutIcon
 };
 
