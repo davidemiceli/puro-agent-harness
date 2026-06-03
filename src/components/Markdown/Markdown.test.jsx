@@ -207,6 +207,21 @@ describe('Markdown component', () => {
         expect(katexSpans.length).toBeGreaterThan(0);
     });
 
+    it('renders inline math \\(...\\) with KaTeX', () => {
+        render(() => <Markdown content={'Inline \\(x^2\\) math'} />);
+        expect(document.querySelectorAll('.katex').length).toBeGreaterThan(0);
+    });
+
+    it('renders block math \\[...\\] with KaTeX', () => {
+        render(() => <Markdown content={'\\[E=mc^2\\]'} />);
+        expect(document.querySelector('.katex')).toBeTruthy();
+    });
+
+    it('renders complex LaTeX with \\mathbf and \\text', () => {
+        render(() => <Markdown content={'\\[\\mathbf{a} = [a_1, a_2, \\dots, a_n]\\]'} />);
+        expect(document.querySelector('.katex')).toBeTruthy();
+    });
+
     it('sanitizes raw HTML (no script execution)', () => {
         render(() => <Markdown content={'<script>alert("xss")</script>'} />);
         expect(document.querySelector('script')).toBeNull();

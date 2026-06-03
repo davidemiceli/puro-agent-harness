@@ -32,7 +32,7 @@ const md = new MarkdownIt({
     }
 });
 
-md.use(texmath, { engine: katex, delimiters: 'dollars' });
+md.use(texmath, { engine: katex, delimiters: ['dollars', 'brackets'] });
 md.use(footnotePlugin);
 md.use(subPlugin);
 md.use(supPlugin);
