@@ -62,7 +62,6 @@ Duplicated footnote reference[^second].
 describe('Markdown component', () => {
     it('renders heading 1', () => {
         render(() => <Markdown content="# Hello" />);
-        expect(screen.getByText('#')).toBeTruthy();
         expect(screen.getByText('Hello')).toBeTruthy();
     });
 
@@ -89,9 +88,9 @@ describe('Markdown component', () => {
 
     it('renders strikethrough text', () => {
         render(() => <Markdown content="~~struck~~" />);
-        const del = document.querySelector('del');
-        expect(del).toBeTruthy();
-        expect(del.textContent).toBe('struck');
+        const s = document.querySelector('s');
+        expect(s).toBeTruthy();
+        expect(s.textContent).toBe('struck');
     });
 
     it('renders inline code', () => {
@@ -236,7 +235,7 @@ describe('Markdown component', () => {
         expect(document.querySelector('h3')).toBeTruthy();
         expect(document.querySelector('strong')).toBeTruthy();
         expect(document.querySelector('em')).toBeTruthy();
-        expect(document.querySelector('del')).toBeTruthy();
+        expect(document.querySelector('s')).toBeTruthy();
         expect(document.querySelector('ul')).toBeTruthy();
         expect(document.querySelector('ol')).toBeTruthy();
         expect(document.querySelector('table')).toBeTruthy();
@@ -294,9 +293,9 @@ describe('Markdown component', () => {
             expect(sup).toBeTruthy();
             const a = sup.querySelector('a');
             expect(a).toBeTruthy();
-            expect(a.getAttribute('href')).toBe('#fn-1');
-            expect(a.getAttribute('id')).toBe('fnref-1');
-            expect(a.textContent).toBe('1');
+            expect(a.getAttribute('href')).toBe('#fn1');
+            expect(a.getAttribute('id')).toBe('fnref1');
+            expect(a.textContent).toBe('[1]');
         });
 
         it('renders inline footnote ^[text] as sup with link', () => {
@@ -304,7 +303,7 @@ describe('Markdown component', () => {
             const sup = document.querySelector('sup');
             expect(sup).toBeTruthy();
             const a = sup.querySelector('a');
-            expect(a.getAttribute('href')).toBe('#fn-1');
+            expect(a.getAttribute('href')).toBe('#fn1');
         });
 
         it('renders footnote section at end with hr and ol', () => {
@@ -315,7 +314,7 @@ describe('Markdown component', () => {
             expect(ol).toBeTruthy();
             const li = document.querySelector('li');
             expect(li).toBeTruthy();
-            expect(li.getAttribute('id')).toBe('fn-1');
+            expect(li.getAttribute('id')).toBe('fn1');
         });
 
         it('footnote section contains footnote body text', () => {
@@ -327,7 +326,7 @@ describe('Markdown component', () => {
         it('footnote section has back-link', () => {
             render(() => <Markdown content={'Text[^first].\n\n[^first]: Footnote body.\n'} />);
             const li = document.querySelector('li');
-            const backLink = li.querySelector('a[href="#fnref-1"]');
+            const backLink = li.querySelector('a[href="#fnref1"]');
             expect(backLink).toBeTruthy();
         });
 
@@ -335,8 +334,8 @@ describe('Markdown component', () => {
             render(() => <Markdown content={'First[^a] and second[^b].\n\n[^a]: A.\n\n[^b]: B.\n'} />);
             const lis = document.querySelectorAll('li');
             expect(lis).toHaveLength(2);
-            expect(lis[0].getAttribute('id')).toBe('fn-1');
-            expect(lis[1].getAttribute('id')).toBe('fn-2');
+            expect(lis[0].getAttribute('id')).toBe('fn1');
+            expect(lis[1].getAttribute('id')).toBe('fn2');
         });
 
         it('footnote body supports markup', () => {
@@ -346,46 +345,41 @@ describe('Markdown component', () => {
             expect(strong.textContent).toBe('bold');
         });
 
-        it('duplicated reference gets same number', () => {
+        it('duplicated reference gets same footnote but different anchor id', () => {
             render(() => <Markdown content={'First[^id] and second[^id].\n\n[^id]: Same.\n'} />);
             const sups = document.querySelectorAll('sup a');
             expect(sups).toHaveLength(2);
-            expect(sups[0].textContent).toBe('1');
-            expect(sups[1].textContent).toBe('1');
+            expect(sups[0].textContent).toBe('[1]');
+            expect(sups[0].getAttribute('id')).toBe('fnref1');
+            expect(sups[1].getAttribute('id')).toBe('fnref1:1');
+            expect(sups[1].getAttribute('href')).toBe('#fn1');
         });
 
         it('renders the full footnote example correctly', () => {
             render(() => <Markdown content={footnoteMarkdown} />);
-            // All paragraph text should be present
             expect(document.body.textContent).toContain('Footnote 1 link');
             expect(document.body.textContent).toContain('Footnote 2 link');
             expect(document.body.textContent).toContain('Inline footnote');
 
-            // Should have 3 superscript links (2 refs + 1 inline) but one ref is duplicated
-            // So we have [^first], [^second], [^second] dup, and ^[] inline = 4 sups
             const sups = document.querySelectorAll('sup');
-            expect(sups.length).toBeGreaterThanOrEqual(3);
+            expect(sups.length).toBeGreaterThanOrEqual(4);
 
-            // Should have footnote section with 2 defined + 1 inline = 3 items
             const lis = document.querySelectorAll('li');
             expect(lis).toHaveLength(3);
 
-            // First footnote (id=^first) should have bold markup and multi-paragraph
-            const firstLi = document.getElementById('fn-1');
+            const firstLi = document.getElementById('fn1');
             expect(firstLi).toBeTruthy();
             expect(firstLi.querySelector('strong')).toBeTruthy();
 
-            // Second footnote (id=^second) should be plain text
-            const secondLi = document.getElementById('fn-2');
+            const secondLi = document.getElementById('fn2');
             expect(secondLi).toBeTruthy();
 
-            // Third footnote is the inline one
-            const thirdLi = document.getElementById('fn-3');
+            const thirdLi = document.getElementById('fn3');
             expect(thirdLi).toBeTruthy();
 
-            // Each footnote should have a back-link
-            const backLinks = document.querySelectorAll('li a[href^="#fnref-"]');
-            expect(backLinks).toHaveLength(3);
+            // Duplicated footnote ref adds extra back-link, total = 1 + 2 + 1 = 4
+            const backLinks = document.querySelectorAll('li a[href^="#fnref"]');
+            expect(backLinks).toHaveLength(4);
         });
     });
 });
