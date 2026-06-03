@@ -9,6 +9,7 @@ import abbrPlugin from 'markdown-it-abbr';
 import containerPlugin from 'markdown-it-container';
 import hljs from 'highlight.js';
 import katex from 'katex';
+import { createMemo } from 'solid-js';
 import DOMPurify from 'dompurify';
 import 'highlight.js/styles/github.css';
 import 'katex/dist/katex.min.css';
@@ -71,7 +72,7 @@ md.renderer.rules.image = function(tokens, idx, options, env, self) {
 };
 
 export default function Markdown(props) {
-    const html = md.render(props.content || '');
-    const sanitized = DOMPurify.sanitize(html, { ADD_ATTR: ['target'] });
-    return <article class="prose prose-base max-w-none selection:bg-gray-200" innerHTML={sanitized} />;
+    const html = createMemo(() => md.render(props.content || ''));
+    const sanitized = createMemo(() => DOMPurify.sanitize(html(), { ADD_ATTR: ['target'] }));
+    return <article class="prose prose-base max-w-none break-words selection:bg-gray-200" innerHTML={sanitized()} />;
 };
