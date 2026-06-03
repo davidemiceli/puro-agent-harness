@@ -12,7 +12,7 @@ import { ArrowUpIcon, ArrowDownIcon, CopyIcon, DownloadIcon, EditIcon, DeleteIco
 import { toDisplayToolName } from '@/src/agent-engine/libs/helpers';
 
 
-const SourceContent = props => <div class='h-fit' classList={{truncate: props.truncate}}>
+const SourceContent = props => <div class='h-fit break-words' classList={{truncate: props.truncate}}>
     {props.content}
 </div>;
 
@@ -177,7 +177,7 @@ export default function ContextItem(props) {
                     <SourceContent content={props.r.content} />
                 </Match>
                 <Match when={props.r.filename && !props.r.expanded}>
-                    <div class="text-xs font-semibold text-gray-800">{props.r.filename}</div>
+                    <div class="text-xs font-semibold text-gray-800 truncate">{props.r.filename}</div>
                 </Match>
                 <Match when={!props.r.filename}>
                     <SourceContent content={props.r.content} truncate={!props.r.expanded} />

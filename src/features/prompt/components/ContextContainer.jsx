@@ -61,7 +61,7 @@ export default function ContextsContainer(props) {
             <Box classes={'w-full p-2 border-l-6 border-transparent whitespace-pre-wrap'}>
                 <Show when={prompt.response} fallback={<RunningStatus />}>
                     <div class="flex flex-col gap-2">
-                        <div>{prompt.response}</div>
+                        <div class="break-words">{prompt.response}</div>
                         <BoxButton aria-label="Stop" classes='hover:bg-yellow-500' onClick={() => LLMProvider.stop()}>Stop</BoxButton>
                     </div>
                 </Show>
