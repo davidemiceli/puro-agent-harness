@@ -25,10 +25,10 @@ const md = new MarkdownIt({
         if (lang && hljs.getLanguage(lang)) {
             const langLabel = lang;
             const highlighted = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
-            return `<div class="not-prose m-0 p-0"><div class="flex justify-between items-center px-4 py-2 bg-gray-50 border border-b-0 border-gray-200 rounded-t-md"><span class="font-mono uppercase font-semibold text-gray-500">${langLabel}</span></div><pre class="px-2 py-1 border border-gray-200 bg-white rounded-b-md overflow-x-auto"><code class="hljs font-mono">${highlighted}</code></pre></div>`;
+            return `<div class="not-prose m-0 p-0"><div class="flex justify-between items-center px-4 py-2 bg-gray-50 border border-b-0 border-gray-200 rounded-t-md"><span class="font-mono uppercase font-semibold text-gray-500">${langLabel}</span></div><pre class="px-2 py-1 border border-gray-200 bg-white rounded-b-md overflow-x-auto"><code class="hljs font-mono text-sm">${highlighted}</code></pre></div>`;
         }
         const autoHighlighted = hljs.highlightAuto(str).value;
-        return `<div class="not-prose m-0 p-0 bg-transparent"><div class="flex justify-between items-center px-4 py-2 bg-gray-50 border border-b-0 border-gray-200 rounded-t-md"><span class="font-mono uppercase font-semibold text-gray-500">text</span></div><pre class="px-2 py-1 border border-gray-200 bg-white rounded-b-md overflow-x-auto"><code class="hljs font-mono">${autoHighlighted}</code></pre></div>`;
+        return `<div class="not-prose m-0 p-0 bg-transparent"><div class="flex justify-between items-center px-4 py-2 bg-gray-50 border border-b-0 border-gray-200 rounded-t-md"><span class="font-mono uppercase font-semibold text-gray-500">text</span></div><pre class="px-2 py-1 border border-gray-200 bg-white rounded-b-md overflow-x-auto"><code class="hljs font-mono text-sm">${autoHighlighted}</code></pre></div>`;
     }
 });
 
