@@ -19,8 +19,8 @@ export const executeTool = async (toolName, args) => {
     }
 };
 
-export const assist = async (model) => {
-    const enabledToolsDefinitions = getEnabledToolsDefinitions();
+export const assist = async (model, disableTools) => {
+    const enabledToolsDefinitions = disableTools ? [] : getEnabledToolsDefinitions();
     const [ content, toolCalls, noTools ] = await ask(
         model,
         promptActions.getBuiltPrompt(),

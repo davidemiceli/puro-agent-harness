@@ -24,7 +24,7 @@ export default function InputPrompt(props) {
     const run = async () => {
         setPrompt('isRunning', true);
         try {
-            await assist(llm.selectedModel);
+            await assist(llm.selectedModel, true);
         } catch(err) {
             console.error(err);
         } finally {
