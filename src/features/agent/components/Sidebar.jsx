@@ -1,4 +1,5 @@
-import { onMount, createSignal, For, Suspense } from 'solid-js';
+import { Show, onMount, createSignal, For, Suspense } from 'solid-js';
+import { llm } from '@/src/stores/llmStore';
 import { promptActions } from '@/src/features/prompt/stores/promptStore';
 import { fileList, refreshFileList } from '../stores/fileList';
 import { category, categoryActions } from '../stores/category';
@@ -7,6 +8,7 @@ import { LoadingLocalSpinner } from '@/src/components/LoadingLocal';
 import { BoxButton } from '@/src/components/Box';
 import Tooltip from '@/src/components/Tooltip';
 import { ContextUsage } from '@/src/components/ContextUsage';
+import { LastContextUsage } from '@/src/components/ContextUsage';
 import FileEntry from '@/src/components/FileEntry';
 import { FileX, FilePlus, FileMinus, SquareDashedMousePointer, FolderSync } from 'lucide-solid';
 import { categoryClassName } from '@/src/libs/helpers/ui';
@@ -26,6 +28,11 @@ export const Sidebar = (props) => {
             <div class="flex gap-2 p-4">
                 <ContextUsage />
             </div>
+            <Show when={llm.lastResponseMeta}>
+                <div class="flex gap-2 p-4">
+                    <LastContextUsage />
+                </div>
+            </Show>
             <div class="flex items-center px-2 text-xs">
                 <Tooltip text="Refresh List" position='right'>
                     <BoxButton colorClasses={btnColorClass} px={btnPadding.x} py={btnPadding.y} onClick={() => refreshFileList()}>

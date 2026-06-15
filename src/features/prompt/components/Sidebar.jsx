@@ -1,4 +1,5 @@
-import { onMount, createSignal, For, Suspense } from 'solid-js';
+import { onMount, createSignal, For, Suspense, Show } from 'solid-js';
+import { llm } from '@/src/stores/llmStore';
 import { promptActions } from '../stores/promptStore';
 import { LoadingLocalSpinner } from '@/src/components/LoadingLocal';
 import Tooltip from '@/src/components/Tooltip';
@@ -6,6 +7,7 @@ import { fileList, refreshFileList } from '../stores/fileList';
 import draggable from '@/src/directives/draggable'; // eslint-disable-line no-unused-vars
 import { BoxButton } from '@/src/components/Box';
 import { ContextUsage } from '@/src/components/ContextUsage';
+import { LastContextUsage } from '@/src/components/ContextUsage';
 import SelectedWorkspace from '@/src/components/SelectedWorkspace';
 import FileEntry from '@/src/components/FileEntry';
 import { FileX, FilePlus, FileMinus, SquareDashedMousePointer, FolderSync } from 'lucide-solid';
@@ -25,6 +27,11 @@ export const Sidebar = (props) => {
             <div class="flex gap-2 p-4">
                 <ContextUsage />
             </div>
+            <Show when={llm.lastResponseMeta}>
+                <div class="flex gap-2 p-4">
+                    <LastContextUsage />
+                </div>
+            </Show>
             <SelectedWorkspace />
             <div class="flex items-center px-2">
                 <Tooltip text="Refresh List" position='right'>
