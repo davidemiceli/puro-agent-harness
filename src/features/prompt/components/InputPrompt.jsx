@@ -9,7 +9,7 @@ import { assist } from '@/src/agent-engine/index';
 import { useBootstrap } from '@/src/contexts/bootstrapContext';
 import { Box, BoxButton } from '@/src/components/Box';
 import Tooltip from '@/src/components/Tooltip';
-import { ExpandIcon, ResizeIcon, AttachIcon, ToolIcon, DeleteIcon, ShellIcon, AddIcon, EnterIcon } from '@/src/components/Icons';
+import { Plus, Terminal, Save, SendHorizontal, Eraser, Hammer, Paperclip, Expand, Shrink, Unplug } from 'lucide-solid';
 import ToolPanel from './ToolPanel';
 
 
@@ -75,9 +75,10 @@ export default function InputPrompt(props) {
     };
 
     const addSaveTextBtn = () => props.inputTextId() ? 'Save' : 'Add to History';
-    const changeModelClass = () => llm.selectedModel ? 'bg-gray-200 hover:bg-gray-100' : 'text-black bg-yellow-400 hover:bg-yellow-500';
-    const btnPadding = {x: 3, y: 2};
-    const btnBaseColorClasses = 'bg-gray-200 hover:bg-gray-100';
+    const changeModelClass = () => llm.selectedModel ? 'bg-gray-200 hover:bg-gray-100' : 'hover:text-yellow-600';
+    const btnPadding = {x: 2, y: 2};
+    const changeModelClassPadX = () => llm.selectedModel ? 4 : btnPadding.x;
+    const btnBaseColorClasses = 'bg-transparent hover:text-sky-600';
 
     return <footer class={`flex flex-col px-4 pb-4 ${expandPrompt() ? 'h-full' : ''}`}>
         <Box classes='flex flex-col grow w-full border border-gray-200 bg-white'>
@@ -94,50 +95,52 @@ export default function InputPrompt(props) {
                 onKeyDown={handleKeyDown}
                 spellcheck='false'
                 rows="3"
-                class="w-full py-3 px-4 overflow-y-auto bg-transparent focus:outline-none focus:ring-0 focus:border-transparent w-full h-full text-gray-800 resize-none flex-grow"
+                class="w-full py-4 px-4 overflow-y-auto bg-transparent focus:outline-none focus:ring-0 focus:border-transparent w-full h-full text-sm text-gray-800 resize-none flex-grow font-mono"
             />
-            <div class="p-3 flex justify-between text-xs font-semibold">
+            <div class="p-3 flex justify-between font-semibold">
                 <div class="flex">
-                    <BoxButton aria-label="Selected Model" colorClasses={changeModelClass()} px={btnPadding.x} py={btnPadding.y} onClick={changeModel}>
-                        <Show when={llm.selectedModel} fallback={'Connect'}>{llm.selectedModel}</Show>
+                    <BoxButton aria-label="Selected Model" classes='text-xs' colorClasses={changeModelClass()} px={changeModelClassPadX()} py={1} onClick={changeModel}>
+                        <Show when={llm.selectedModel} fallback={<Unplug absoluteStrokeWidth={true} size={16} />}>{llm.selectedModel}</Show>
                     </BoxButton>
                     <Tooltip text={expandPrompt() ? 'Expand' : 'Resize'} position='top'>
                         <BoxButton aria-label="Toggle Expand" colorClasses={btnBaseColorClasses} px={btnPadding.x} py={btnPadding.y} onClick={() => setExpandPrompt(v => !v)}>
-                            <Show when={expandPrompt()} fallback={<ExpandIcon class="w-4 h-4 object-contain" />}>
-                                <ResizeIcon class="w-4 h-4 object-contain" />
+                            <Show when={expandPrompt()} fallback={<Expand absoluteStrokeWidth={true} size={16} />}>
+                                <Shrink absoluteStrokeWidth={true} size={16} />
                             </Show>
                         </BoxButton>
                     </Tooltip>
                     <Tooltip text='Import File' position='top'>
                         <BoxButton aria-label="Import File" colorClasses={btnBaseColorClasses} px={btnPadding.x} py={btnPadding.y} onClick={() => onOpenFile()}>
-                            <AttachIcon class="w-4 h-4 object-contain" />
+                            <Paperclip absoluteStrokeWidth={true} size={16} />
                         </BoxButton>
                     </Tooltip>
                     <Tooltip text='Toggle tools' position='top'>
-                        <BoxButton aria-label="Tools" colorClasses={showTools() ? 'bg-gray-800 text-white' : 'bg-gray-200 hover:bg-gray-100'} px={btnPadding.x} py={btnPadding.y} onClick={toggleToolsPanel}>
-                            <ToolIcon class="w-4 h-4 object-contain" />
+                        <BoxButton aria-label="Tools" colorClasses={showTools() ? 'bg-gray-800 text-white' : btnBaseColorClasses} px={btnPadding.x} py={btnPadding.y} onClick={toggleToolsPanel}>
+                            <Hammer absoluteStrokeWidth={true} size={16} />
                         </BoxButton>
                     </Tooltip>
                     <Tooltip text='Clear all context' position='top'>
-                        <BoxButton aria-label="Clear" colorClasses='bg-gray-200 hover:bg-red-600 hover:text-white' px={btnPadding.x} py={btnPadding.y} onClick={resetContext}>
-                            <DeleteIcon class="w-4 h-4 object-contain" />
+                        <BoxButton aria-label="Clear" colorClasses='bg-transparent hover:text-red-600' px={btnPadding.x} py={btnPadding.y} onClick={resetContext}>
+                            <Eraser absoluteStrokeWidth={true} size={16} />
                         </BoxButton>
                     </Tooltip>
                 </div>
                 <div class='flex items-center'>
                     <Tooltip text='Execute bash' position='top'>
-                        <BoxButton aria-label="Execute Bash" colorClasses="bg-gray-200 hover:bg-gray-700 hover:text-white" px="3" py="1" onClick={() => props.onExecuteBash(props.inputText())}>
-                            <ShellIcon class="w-6 h-6 object-contain" />
+                        <BoxButton aria-label="Execute Bash" colorClasses="bg-transparent hover:text-sky-700" px={btnPadding.x} py={btnPadding.y} onClick={() => props.onExecuteBash(props.inputText())}>
+                            <Terminal absoluteStrokeWidth={true} size={16} />
                         </BoxButton>
                     </Tooltip>
                     <Tooltip text={addSaveTextBtn} position='top'>
-                        <BoxButton aria-label={addSaveTextBtn} colorClasses="bg-gray-200 hover:bg-sky-700 hover:text-white" px="4" py="2" onClick={() => save(props.inputText())}>
-                            <Show when={props.inputTextId()} fallback={<AddIcon class="w-4 h-4 object-contain" />}>Save</Show>
+                        <BoxButton aria-label={addSaveTextBtn} colorClasses="bg-transparent hover:text-sky-700" px={btnPadding.x} py={btnPadding.y} onClick={() => save(props.inputText())}>
+                            <Show when={props.inputTextId()} fallback={<Plus absoluteStrokeWidth={true} size={16} />}>
+                                <Save absoluteStrokeWidth={true} size={16}  />
+                            </Show>
                         </BoxButton>
                     </Tooltip>
                     <Tooltip text='Run prompt' position='top'>
-                        <BoxButton aria-label="Run Prompt" colorClasses="bg-green-800 text-white hover:bg-green-900" px="4" py="2" onClick={() => saveAndRun(props.inputText())}>
-                            <EnterIcon class="w-4 h-4 object-contain" />
+                        <BoxButton aria-label="Run Prompt" colorClasses="bg-transparent hover:text-green-700" px={btnPadding.x} py={btnPadding.y} onClick={() => saveAndRun(props.inputText())}>
+                            <SendHorizontal absoluteStrokeWidth={true} size={16} />
                         </BoxButton>
                     </Tooltip>
                 </div>

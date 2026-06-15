@@ -4,8 +4,8 @@ import { promptActions } from '@/src/features/prompt/stores/promptStore';
 import Tooltip from '@/src/components/Tooltip';
 import { Box, BoxButton, BoxInfo, BoxButtonShowMore } from '@/src/components/Box';
 import EstimatedTokensCount from '@/src/components/EstimatedTokensCount';
-import { ArrowUpIcon, ArrowDownIcon, DeleteIcon } from '@/src/components/Icons';
-import { categoryClassName } from '../common/helpers';
+import { ArrowDown, ArrowUp, X } from 'lucide-solid';
+import { categoryClassName } from '@/src/libs/helpers/ui';
 
 
 export default function SystemItem(props) {
@@ -32,7 +32,7 @@ export default function SystemItem(props) {
         if (props.index !== props.draggedIndex) props.onDrop(dir);
     };
 
-    return <Box classes={`flex flex-col gap-4 w-full p-2 border-l-6 whitespace-pre-wrap ${props.r.included ? categoryClassName(props.r.category).border : 'border-gray-100'} ${dragClasses()}`}
+    return <Box classes={`flex flex-col gap-4 w-full px-2 border-l-6 whitespace-pre-wrap ${props.r.included ? categoryClassName(props.r.category).border : 'border-gray-100'} ${dragClasses()}`}
         draggable={true}
         onDragStart={props.onDragStart}
         onDragOver={handleDragOver}
@@ -56,20 +56,20 @@ export default function SystemItem(props) {
                     <BoxButtonShowMore showMore={props.r.expanded} toggleShowMore={() => promptActions.toggleExpandPrompt('system', props.r.id)} />
                 </Show>
             </div>
-            <div class='flex gap-2'>
+            <div class='flex'>
                 <Tooltip text="Move up" position="bottom">
-                    <BoxButton classes='hover:bg-green-700' onClick={() => promptActions.movePrompt('system', props.r.id, -1)}>
-                        <ArrowUpIcon class="w-4 h-4 object-contain" />
+                    <BoxButton colorClasses='text-gray-600 hover:text-green-700' onClick={() => promptActions.movePrompt('system', props.r.id, -1)}>
+                        <ArrowUp absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text="Move down" position="bottom">
-                    <BoxButton classes='hover:bg-green-700' onClick={() => promptActions.movePrompt('system', props.r.id, 1)}>
-                        <ArrowDownIcon class="w-4 h-4 object-contain" />
+                    <BoxButton colorClasses='text-gray-600 hover:text-green-700' onClick={() => promptActions.movePrompt('system', props.r.id, 1)}>
+                        <ArrowDown absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text="Delete" position='left'>
-                    <BoxButton classes='hover:bg-red-700' onClick={() => promptActions.deleteFromPrompt('system', props.r.id)}>
-                        <DeleteIcon class="w-4 h-4 object-contain" />
+                    <BoxButton colorClasses='text-gray-600 hover:text-red-700' onClick={() => promptActions.deleteFromPrompt('system', props.r.id)}>
+                        <X absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
             </div>

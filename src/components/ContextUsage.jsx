@@ -78,7 +78,7 @@ export function ContextUsageMinimal() {
         };
     });
 
-    return <div class="flex items-center gap-2 text-xs truncate">
+    return <div class="flex items-center gap-2 truncate">
         <span class="text-gray-400">Tokens &approx;</span>
         <span class={stats().color}>{stats().avgK}k<span class={`mx-0.5 ${stats().color}`}>/</span>{stats().limitK}k</span>
     </div>;

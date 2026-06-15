@@ -8,13 +8,13 @@ import { BoxButton } from '@/src/components/Box';
 import { ContextUsage } from '@/src/components/ContextUsage';
 import SelectedWorkspace from '@/src/components/SelectedWorkspace';
 import FileEntry from '@/src/components/FileEntry';
-import { RefreshIcon, DeselectIcon, AddIcon, MinusIcon, DeleteIcon } from '@/src/components/Icons';
+import { FileX, FilePlus, FileMinus, SquareDashedMousePointer, FolderSync } from 'lucide-solid';
 
 
 export const Sidebar = (props) => {
     const [width, setWidth] = createSignal(448);
-    const btnPadding = {x: 3, y: 2};
-    const btnColorClass = 'bg-gray-200 hover:bg-gray-100 text-black';
+    const btnPadding = {x: 2, y: 2};
+    const btnColorClass = 'bg-transparent text-gray-600 hover:text-black';
 
     onMount(() => {
         refreshFileList();
@@ -26,30 +26,30 @@ export const Sidebar = (props) => {
                 <ContextUsage />
             </div>
             <SelectedWorkspace />
-            <div class="flex items-center gap-2 p-4">
+            <div class="flex items-center px-2">
                 <Tooltip text="Refresh List" position='right'>
                     <BoxButton colorClasses={btnColorClass} px={btnPadding.x} py={btnPadding.y} onClick={() => refreshFileList()}>
-                        <RefreshIcon class="w-4 h-4 object-contain" />
+                        <FolderSync size={20} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text="Deselect" position='top'>
                     <BoxButton colorClasses={btnColorClass} px={btnPadding.x} py={btnPadding.y} onClick={() => props.deselectAllPaths()}>
-                        <DeselectIcon class="w-4 h-4 object-contain" />
+                        <SquareDashedMousePointer size={20} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text='Remove from context' position='top'>
                     <BoxButton colorClasses={btnColorClass} px={btnPadding.x} py={btnPadding.y} onClick={() => props.removeSelectedPaths()}>
-                        <MinusIcon class="w-4 h-4 object-contain" />
+                        <FileMinus size={20} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text='Add to context' position='top'>
                     <BoxButton colorClasses={btnColorClass} px={btnPadding.x} py={btnPadding.y} onClick={() => props.addSelectedPaths()}>
-                        <AddIcon class="w-4 h-4 object-contain" />
+                        <FilePlus size={20} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text='Clear all files from context' position='top'>
                     <BoxButton colorClasses={btnColorClass} px={btnPadding.x} py={btnPadding.y} onClick={() => promptActions.clearPromptFiles('context')}>
-                        <DeleteIcon class="w-4 h-4 object-contain" />
+                        <FileX size={20} />
                     </BoxButton>
                 </Tooltip>
             </div>
