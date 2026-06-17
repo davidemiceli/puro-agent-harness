@@ -3,17 +3,7 @@ import { estimateTokensCount } from '@/src/libs/helpers/utils';
 import { settings } from '@/src/features/settings/stores/settingStore';
 import { promptActions } from '@/src/features/prompt/stores/promptStore';
 import { getEnabledToolsDefinitions } from '@/src/agent-engine/libs/helpers';
-
-const formatKilo = (v) => (v / 1000).toFixed(2).replace(/\.00$/, '');
-
-const calcPercentage = (value, limit) => Math.min(Math.max((value / limit) * 100, 0), 100);
-
-const getProgressStyles = (percent) => {
-    if (percent == 0) return { bar: 'bg-gray-200', text: 'text-gray-500' };
-    if (percent >= 70) return { bar: 'bg-red-700', text: 'text-red-700' };
-    if (percent >= 45) return { bar: 'bg-yellow-500', text: 'text-yellow-600' };
-    return { bar: 'bg-green-600', text: 'text-green-700' };
-};
+import { formatKilo, calcPercentage, getProgressStyles } from './contextUsageUtils';
 
 export function ContextUsage() {
 
@@ -78,7 +68,7 @@ export function ContextUsageMinimal() {
         };
     });
 
-    return <div class="flex items-center gap-2 text-xs truncate">
+    return <div class="flex items-center gap-2 truncate">
         <span class="text-gray-400">Tokens &approx;</span>
         <span class={stats().color}>{stats().avgK}k<span class={`mx-0.5 ${stats().color}`}>/</span>{stats().limitK}k</span>
     </div>;

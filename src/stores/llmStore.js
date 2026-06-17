@@ -5,6 +5,7 @@ import { createStore } from 'solid-js/store';
 export const [llm, setLLM] = createStore({
     models: [],
     current: 0,
+    lastResponseMeta: null,
     get selectedModel() {
         return this.models[this.current];
     }
@@ -19,6 +20,8 @@ export const llmActions = {
             if (modelIndex > -1) setLLM('current', modelIndex);
         });
     },
+
+    updateLastResponseMeta: (meta) => setLLM('lastResponseMeta', meta),
 
     changeModel: () => setLLM(v => {
         if (v.models.length === 0) return v;

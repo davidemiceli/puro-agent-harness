@@ -13,7 +13,7 @@ export default function App(props) {
                 <Suspense fallback={<LoadingGlobal />}>
                     <div class="flex flex-col h-screen min-w-7xl overflow-hidden">
                         <Header />
-                        <div class="flex flex-1 overflow-hidden">
+                        <div class="flex flex-1 overflow-hidden text-sm">
                             <MenuSidebar />
                             {props.children}
                         </div>

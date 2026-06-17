@@ -1,5 +1,5 @@
 import { createSignal, For, Show } from 'solid-js';
-import { ChevronRightIcon, ChevronDownIcon } from './Icons';
+import { ChevronRight, ChevronDown } from 'lucide-solid';
 
 
 export default function FileEntry(props) {
@@ -22,8 +22,8 @@ export default function FileEntry(props) {
         >
             <span class="mr-1 w-3 text-center text-gray-500">
                 <Show when={isFolder()} fallback={''}>
-                    <Show when={isOpen()} fallback={<ChevronRightIcon class="w-4 h-4 object-contain" />}>
-                        <ChevronDownIcon class="w-4 h-4 object-contain" />
+                    <Show when={isOpen()} fallback={<ChevronRight absoluteStrokeWidth={true} size={16} />}>
+                        <ChevronDown absoluteStrokeWidth={true} size={16} />
                     </Show>
                 </Show>
             </span>

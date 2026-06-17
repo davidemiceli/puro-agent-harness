@@ -8,11 +8,12 @@ import { promptActions, setPrompt } from '../stores/promptStore';
 import Tooltip from '@/src/components/Tooltip';
 import { Box, BoxButton, BoxInfo, BoxButtonShowMore } from '@/src/components/Box';
 import EstimatedTokensCount from '@/src/components/EstimatedTokensCount';
-import { ArrowUpIcon, ArrowDownIcon, CopyIcon, DownloadIcon, EditIcon, DeleteIcon, ForwardIcon } from '@/src/components/Icons';
+import { ArrowUp, ArrowDown, Save, Download, Pencil, Files, CornerDownRight, X } from 'lucide-solid';
 import { toDisplayToolName } from '@/src/agent-engine/libs/helpers';
+import { roleClassName } from '@/src/libs/helpers/ui';
 
 
-const SourceContent = props => <div class='h-fit break-words' classList={{truncate: props.truncate}}>
+const SourceContent = props => <div class='h-fit break-words text-sm font-mono' classList={{truncate: props.truncate}}>
     {props.content}
 </div>;
 
@@ -26,13 +27,6 @@ export default function ContextItem(props) {
         if (dropDir() === 'after') return 'border-b-2';
         return '';
     };
-
-    const roleClassName = role => (
-        role === 'user' ? {bg: 'bg-sky-600', border: 'border-sky-600'} :
-            role === 'assistant' ? {bg: 'bg-green-700', border: 'border-green-700'} :
-                role === 'tool' ? {bg: 'bg-orange-600', border: 'border-orange-600'} :
-                    {bg: 'bg-gray-800', border: 'border-gray-800'}
-    );
 
     const clickRunTool = async (id) => {
         setPrompt('isRunning', true);
@@ -95,7 +89,7 @@ export default function ContextItem(props) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
     >
-        <div class='flex justify-between text-xs'
+        <div class='flex justify-between'
             draggable={true}
             onDragStart={props.onDragStart}
             onDragEnd={props.onDragEnd}
@@ -112,56 +106,58 @@ export default function ContextItem(props) {
                     </BoxButton>
                 </Tooltip>
                 <Show when={props.r.filename}>
-                    <BoxInfo colorClasses='text-black bg-amber-300'>File</BoxInfo>
+                    <Tooltip text='Expand to read the content' position='right'>
+                        <BoxInfo colorClasses='text-black bg-amber-300'>File</BoxInfo>
+                    </Tooltip>
                 </Show>
                 <Show when={props.r.toolName}>
                     <BoxInfo colorClasses='text-gray-800 bg-gray-200' classes='capitalize'>
                         {toDisplayToolName(props.r.toolName)}
                     </BoxInfo>
                 </Show>
-                <Show when={props.r.expanded}>
-                    <BoxButtonShowMore showMore={props.r.expanded} toggleShowMore={() => promptActions.toggleExpandPrompt('context', props.r.id)} />
-                </Show>
+                <BoxButtonShowMore showMore={props.r.expanded} toggleShowMore={() => promptActions.toggleExpandPrompt('context', props.r.id)} />
             </div>
-            <div class='flex gap-2'>
+            <div class='flex items-center'>
                 <Tooltip text="Move up" position="bottom">
-                    <BoxButton aria-label="Move Up" classes='hover:bg-green-700' onClick={() => promptActions.movePrompt('context', props.r.id, -1)}>
-                        <ArrowUpIcon class="w-4 h-4 object-contain" />
+                    <BoxButton aria-label="Move Up" colorClasses='text-gray-600 hover:text-green-700' onClick={() => promptActions.movePrompt('context', props.r.id, -1)}>
+                        <ArrowUp absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text="Move down" position="bottom">
-                    <BoxButton aria-label="Move Down" classes='hover:bg-green-700' onClick={() => promptActions.movePrompt('context', props.r.id, 1)}>
-                        <ArrowDownIcon class="w-4 h-4 object-contain" />
+                    <BoxButton aria-label="Move Down" colorClasses='text-gray-600 hover:text-green-700' onClick={() => promptActions.movePrompt('context', props.r.id, 1)}>
+                        <ArrowDown absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
                 <Show when={canSave(props.r.filename)}>
-                    <BoxButton aria-label="Save" classes='hover:bg-sky-700' onClick={() => saveChanges(props.r.content, props.r.filename)}>Save</BoxButton>
+                    <BoxButton aria-label="Save" colorClasses='text-gray-600 hover:text-sky-700' onClick={() => saveChanges(props.r.content, props.r.filename)}>
+                        <Save absoluteStrokeWidth={true} size={16} />
+                    </BoxButton>
                 </Show>
                 <Tooltip text="Save as" position="bottom">
-                    <BoxButton aria-label="Save As" classes='hover:bg-sky-700' onClick={() => APIs.saveFileDialog(props.r.content)}>
-                        <DownloadIcon class="w-4 h-4 object-contain" />
+                    <BoxButton aria-label="Save As" colorClasses='text-gray-600 hover:text-sky-700' onClick={() => APIs.saveFileDialog(props.r.content)}>
+                        <Download absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
-                <Show when={!isCopied()} fallback={<BoxInfo colorClasses='bg-sky-900 text-white'><CopyIcon class="w-4 h-4 object-contain" /></BoxInfo>}>
+                <Show when={!isCopied()} fallback={<BoxInfo colorClasses='text-sky-700'><Files absoluteStrokeWidth={true} size={16} /></BoxInfo>}>
                     <Tooltip text="Copy" position="bottom">
-                        <BoxButton aria-label="Copy" classes='hover:bg-sky-700' onClick={() => handleCopy(props.r.content)}>
-                            <CopyIcon class="w-4 h-4 object-contain" />
+                        <BoxButton aria-label="Copy" colorClasses='text-gray-600 hover:text-sky-700' onClick={() => handleCopy(props.r.content)}>
+                            <Files absoluteStrokeWidth={true} size={16} />
                         </BoxButton>
                     </Tooltip>
                 </Show>
                 <Tooltip text="Use as input" position="bottom">
-                    <BoxButton aria-label="Use as input" classes='hover:bg-sky-700' onClick={() => props.setInputText(props.r.content)}>
-                        <ForwardIcon class="w-4 h-4 object-contain" />
+                    <BoxButton aria-label="Use as input" colorClasses='text-gray-600 hover:text-sky-700' onClick={() => props.setInputText(props.r.content)}>
+                        <CornerDownRight absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text="Edit" position="bottom">
-                    <BoxButton aria-label="Edit" classes='hover:bg-sky-700' onClick={() => props.edit(props.r.id, props.r.content)}>
-                        <EditIcon class="w-4 h-4 object-contain" />
+                    <BoxButton aria-label="Edit" colorClasses='text-gray-600 hover:text-sky-700' onClick={() => props.edit(props.r.id, props.r.content)}>
+                        <Pencil absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
                 <Tooltip text="Delete" position="left">
-                    <BoxButton aria-label="Delete" classes='hover:bg-red-700' onClick={() => promptActions.deleteFromPrompt('context', props.r.id)}>
-                        <DeleteIcon class="w-4 h-4 object-contain" />
+                    <BoxButton aria-label="Delete" colorClasses='text-gray-600 hover:text-red-700' onClick={() => promptActions.deleteFromPrompt('context', props.r.id)}>
+                        <X absoluteStrokeWidth={true} size={16} />
                     </BoxButton>
                 </Tooltip>
             </div>
@@ -177,14 +173,14 @@ export default function ContextItem(props) {
                     <SourceContent content={props.r.content} />
                 </Match>
                 <Match when={props.r.filename && !props.r.expanded}>
-                    <div class="text-xs font-semibold text-gray-800 truncate">{props.r.filename}</div>
+                    <div class="font-semibold text-gray-800 truncate">{props.r.filename}</div>
                 </Match>
                 <Match when={!props.r.filename}>
                     <SourceContent content={props.r.content} truncate={!props.r.expanded} />
                 </Match>
             </Switch>
         </Show>
-        <div class='flex justify-between text-xs'>
+        <div class='flex justify-between'>
             <div class='flex gap-2'>
                 <BoxButtonShowMore showMore={props.r.expanded} toggleShowMore={() => promptActions.toggleExpandPrompt('context', props.r.id)} />
                 <BoxInfo colorClasses='text-gray-800 bg-gray-200'>{formatDateTime(props.r.datetime)}</BoxInfo>

@@ -5,7 +5,7 @@ import LoadingSpinner from './Spinner';
 
 
 export default function RunningStatus() {
-    const textClass = 'font-semibold text-xs';
+    const textClass = 'font-mono font-semibold text-xs';
     return <div class="flex items-center gap-2">
         <LoadingSpinner loading={prompt.isRunning} color={prompt.isRunning ? 'bg-green-600' : 'bg-gray-300'} />
         <Show when={prompt.isRunning} fallback={<div class={`${textClass} text-gray-400`}>Not running</div>}>

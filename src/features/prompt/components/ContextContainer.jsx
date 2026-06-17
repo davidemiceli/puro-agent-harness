@@ -41,7 +41,7 @@ export default function ContextsContainer(props) {
     };
     const handleDragEnd = () => setDraggedIndex(-1);
 
-    return <div ref={containerRef} class="w-full flex flex-col font-sm overflow-y-auto gap-4">
+    return <div ref={containerRef} class="w-full flex flex-col text-xs overflow-y-auto gap-4">
         <For each={prompt.context}>{(r, i) => <ContextItem
             r={r}
             index={i()}

@@ -11,7 +11,7 @@ class LLMProvider {
     init(configs) {
         const { host, model, api_key } = configs.provider;
         this.model = model;
-        const headers = api_key ? {
+        const headers = model.endsWith(':cloud') && api_key ? {
             headers: { Authorization: `Bearer ${api_key}` }
         } : {};
         this.LLM = new Ollama({ host, ...headers });
