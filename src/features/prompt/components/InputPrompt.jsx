@@ -9,7 +9,7 @@ import { assist } from '@/src/agent-engine/index';
 import { useBootstrap } from '@/src/contexts/bootstrapContext';
 import { Box, BoxButton } from '@/src/components/Box';
 import Tooltip from '@/src/components/Tooltip';
-import { Plus, Terminal, Save, SendHorizontal, Eraser, Hammer, Paperclip, Expand, Shrink, Unplug } from 'lucide-solid';
+import { Plus, Terminal, Save, ArrowUp, Eraser, Hammer, Paperclip, Expand, Shrink, Unplug } from 'lucide-solid';
 import ToolPanel from './ToolPanel';
 
 
@@ -140,7 +140,7 @@ export default function InputPrompt(props) {
                     </Tooltip>
                     <Tooltip text='Run prompt' position='top'>
                         <BoxButton aria-label="Run Prompt" colorClasses="bg-transparent hover:text-green-700" px={btnPadding.x} py={btnPadding.y} onClick={() => saveAndRun(props.inputText())}>
-                            <SendHorizontal absoluteStrokeWidth={true} size={16} />
+                            <ArrowUp absoluteStrokeWidth={true} size={16} />
                         </BoxButton>
                     </Tooltip>
                 </div>
